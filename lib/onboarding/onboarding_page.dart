@@ -7,13 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final pages = [
   const PageData(
-    icon: Icons.format_size,
-    title: "Choose your\ninterests",
-    description: " Long description Long description Long description Long description",
-    textColor: Colors.white,
-    bgColor: Color(0xFFFDBFDD),
-  ),
-  const PageData(
     icon: Icons.hdr_weak,
     title: "Drag and\ndrop to move",
     bgColor: Color(0xFFFFFFFF),
@@ -24,15 +17,39 @@ final pages = [
     bgColor: Color(0xFF0043D0),
     textColor: Colors.white,
   ),
+  const PageData(
+    icon: Icons.format_size,
+    title: "Choose your\ninterests",
+    description: " Long description Long description Long description Long description",
+    textColor: Colors.white,
+    bgColor: Color(0xFFFDBFDD),
+  ),
 ];
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
+
+  @override
+  State<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends State<OnboardingPage> {
+  final PageController pageController = PageController();
+
+  @override
+  void didChangeDependencies() {
+    // не трогать, почему не перерисовывается
+    Future.delayed(const Duration(milliseconds: 200)).then((_) => setState(
+          () {},
+        ));
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ConcentricPageView(
+        pageController: pageController,
         colors: pages.map((p) => p.bgColor).toList(),
         radius: 0.12.sw,
         curve: Curves.ease,
@@ -48,67 +65,69 @@ class OnboardingPage extends StatelessWidget {
         // verticalPosition: 0.7,
         // direction: Axis.vertical,
         // itemCount: pages.length,
-        // physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (index) {
-          final page = pages[index % pages.length];
-          return SafeArea(
-            child: _OnboardingPage(page: page),
-          );
+          print(index);
+          //inal page = pages[index];
+          return OnboardingPageView(page: pages[index]);
         },
       ),
     );
   }
 }
 
-class PageData {
-  final String? title;
-  final String? description;
-  final IconData? icon;
-  final Color bgColor;
-  final Color textColor;
-
-  const PageData({
-    this.title,
-    this.description,
-    this.icon,
-    this.bgColor = Colors.white,
-    this.textColor = Colors.black,
-  });
-}
-
-class _OnboardingPage extends StatelessWidget {
+class OnboardingPageView extends StatefulWidget {
   final PageData page;
 
-  const _OnboardingPage({Key? key, required this.page}) : super(key: key);
+  const OnboardingPageView({Key? key, required this.page}) : super(key: key);
 
   @override
+  State<OnboardingPageView> createState() => _OnboardingPageViewState();
+}
+
+class _OnboardingPageViewState extends State<OnboardingPageView> {
+  @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    space(double p) => SizedBox(height: screenHeight * p / 100);
     return Column(
       children: [
-        space(10),
+        SizedBox(height: 0.1.sh),
         _Image(
-          page: page,
+          page: widget.page,
           size: 190,
           iconSize: 170,
         ),
-        space(8),
-        _Text(
-          page: page,
-          text: page.title,
+        SizedBox(height: 0.08.sh),
+        // _Text(
+        //   page: widget.page,
+        //   text: widget.page.title,
+        //   style: TextStyle(
+        //     fontSize: 0.046.sh,
+        //   ),
+        // ),
+        Text(
+          widget.page.title ?? '',
           style: TextStyle(
-            fontSize: screenHeight * 0.046,
+            color: widget.page.textColor,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Helvetica',
+            letterSpacing: 0.0,
+            fontSize: 18,
+            height: 1.2,
+          ).merge(
+            TextStyle(
+              fontSize: 0.046.sh,
+            ),
           ),
+          textAlign: TextAlign.center,
         ),
-        space(2),
+        SizedBox(height: 0.02.sh),
         Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),
           child: _Text(
-            page: page,
-            text: page.description,
+            page: widget.page,
+            text: widget.page.description,
             style: TextStyle(
-              fontSize: screenHeight * 0.02,
+              fontSize: 0.02.sh,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -160,18 +179,24 @@ class _Image extends StatelessWidget {
   final double size;
   final double iconSize;
 
+  Color get bgColor {
+    return page.bgColor.withGreen(page.bgColor.green + 20).withRed(page.bgColor.red - 100).withAlpha(90);
+  }
+
+  Color get icon1Color {
+    return page.bgColor.withBlue(page.bgColor.blue - 10).withGreen(220);
+  }
+
+  Color get icon2Color {
+    return page.bgColor.withGreen(66).withRed(77);
+  }
+
+  Color get icon3Color {
+    return page.bgColor.withRed(111).withGreen(220);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bgColor = page.bgColor
-        // .withBlue(page.bgColor.blue - 40)
-        .withGreen(page.bgColor.green + 20)
-        .withRed(page.bgColor.red - 100)
-        .withAlpha(90);
-
-    final icon1Color = page.bgColor.withBlue(page.bgColor.blue - 10).withGreen(220);
-    final icon2Color = page.bgColor.withGreen(66).withRed(77);
-    final icon3Color = page.bgColor.withRed(111).withGreen(220);
-
     return Container(
       width: size,
       height: size,
@@ -214,4 +239,20 @@ class _Image extends StatelessWidget {
       ),
     );
   }
+}
+
+class PageData {
+  final String? title;
+  final String? description;
+  final IconData? icon;
+  final Color bgColor;
+  final Color textColor;
+
+  const PageData({
+    this.title,
+    this.description,
+    this.icon,
+    this.bgColor = Colors.white,
+    this.textColor = Colors.black,
+  });
 }
