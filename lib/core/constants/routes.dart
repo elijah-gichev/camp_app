@@ -1,8 +1,9 @@
 abstract class Routes {
-  static const String auth = '/';
+  static const String splashScreen = '/';
+  static const String auth = '/auth';
+
+  static const String mainPage = '/main_page';
 
   // static const String signIn = '/signIn';
-  // static const String subscriptions = '/subscriptions';
-  // static const String menu = '/menu';
-  // static const String dashboard = '/dashboard';
+
 }
