@@ -59,7 +59,7 @@ class _QRScannerState extends State<QRScanner> {
         }
 
         if (state is PaymentDone) {
-          showSnackBar(context: context, message: 'всё ок!');
+          showSnackBar(context: context, message: 'Оплата прошла успешно!');
         }
       },
       child: SafeArea(
