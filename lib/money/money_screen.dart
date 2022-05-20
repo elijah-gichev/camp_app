@@ -1,3 +1,4 @@
+import 'package:camp_app/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 class MoneyScreen extends StatelessWidget {
@@ -5,6 +6,20 @@ class MoneyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(
+        child: const Center(
+          child: ColoredBox(color: Colors.black),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            Routes.qrScanner,
+          );
+        },
+      ),
+    );
   }
 }

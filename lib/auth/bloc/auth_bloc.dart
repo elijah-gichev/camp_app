@@ -31,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         dioService.addIdInterceptor(resUser.id);
 
         emit(AuthLoadingDone(resUser));
-      } on MyException catch (e) {
+      } on AuthException catch (e) {
         print(event.phone);
         emit(AuthLoadingFailure(e.msg));
       }
