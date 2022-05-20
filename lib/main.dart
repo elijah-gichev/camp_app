@@ -1,9 +1,20 @@
 import 'package:camp_app/core/router.dart';
+import 'package:camp_app/onboarding/onboarding_page.dart';
+import 'package:camp_app/splash/splash_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+void main() async {
   setup();
-  runApp(const App());
+  final storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+  HydratedBlocOverrides.runZoned(
+    () => runApp(const App()),
+    storage: storage,
+  );
 }
 
 void setup() {
@@ -22,7 +33,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: AppRouter().onGenerateRoute,
-      //home: const MyHomePage(title: 'Camp app'),
+      home: const SplashScreen(),
     );
   }
 }

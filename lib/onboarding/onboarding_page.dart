@@ -5,6 +5,8 @@ final pages = [
   const PageData(
     icon: Icons.format_size,
     title: "Choose your\ninterests",
+    description:
+        " Long description Long description Long description Long description",
     textColor: Colors.white,
     bgColor: Color(0xFFFDBFDD),
   ),
@@ -57,12 +59,14 @@ class OnboardingPage extends StatelessWidget {
 
 class PageData {
   final String? title;
+  final String? description;
   final IconData? icon;
   final Color bgColor;
   final Color textColor;
 
   const PageData({
     this.title,
+    this.description,
     this.icon,
     this.bgColor = Colors.white,
     this.textColor = Colors.black,
@@ -89,8 +93,21 @@ class _OnboardingPage extends StatelessWidget {
         space(8),
         _Text(
           page: page,
+          text: page.title,
           style: TextStyle(
             fontSize: screenHeight * 0.046,
+          ),
+        ),
+        space(2),
+        Padding(
+          padding: const EdgeInsets.only(left: 24, right: 24),
+          child: _Text(
+            page: page,
+            text: page.description,
+            style: TextStyle(
+              fontSize: screenHeight * 0.02,
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ],
@@ -99,9 +116,12 @@ class _OnboardingPage extends StatelessWidget {
 }
 
 class _Text extends StatelessWidget {
+  final String? text;
+
   const _Text({
     Key? key,
     required this.page,
+    required this.text,
     this.style,
   }) : super(key: key);
 
@@ -111,7 +131,7 @@ class _Text extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      page.title ?? '',
+      text ?? '',
       style: TextStyle(
         color: page.textColor,
         fontWeight: FontWeight.w600,
@@ -140,13 +160,13 @@ class _Image extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bgColor = page.bgColor
-    // .withBlue(page.bgColor.blue - 40)
+        // .withBlue(page.bgColor.blue - 40)
         .withGreen(page.bgColor.green + 20)
         .withRed(page.bgColor.red - 100)
         .withAlpha(90);
 
     final icon1Color =
-    page.bgColor.withBlue(page.bgColor.blue - 10).withGreen(220);
+        page.bgColor.withBlue(page.bgColor.blue - 10).withGreen(220);
     final icon2Color = page.bgColor.withGreen(66).withRed(77);
     final icon3Color = page.bgColor.withRed(111).withGreen(220);
 
