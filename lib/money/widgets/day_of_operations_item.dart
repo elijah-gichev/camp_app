@@ -30,13 +30,17 @@ class DayOfOperationsItem extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: dayEntry.operations.length,
-                itemBuilder: (c, i) =>
-                    OperationView(operation: dayEntry.operations[i]),
-                separatorBuilder: (c, i) => divider,
+              child: MediaQuery.removePadding(
+                removeTop: true,
+                context: context,
+                child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: dayEntry.operations.length,
+                  itemBuilder: (c, i) =>
+                      OperationView(operation: dayEntry.operations[i]),
+                  separatorBuilder: (c, i) => divider,
+                ),
               ),
             ),
           ],

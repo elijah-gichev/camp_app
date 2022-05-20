@@ -97,18 +97,12 @@ class MoneyContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 86),
-            itemCount: dayEntries.length,
-            itemBuilder: (context, index) => DayOfOperationsItem(
-              dayEntry: dayEntries[index],
-            ),
-          ),
-        ),
-      ],
+    return ListView.builder(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 86),
+      itemCount: dayEntries.length,
+      itemBuilder: (context, index) => DayOfOperationsItem(
+        dayEntry: dayEntries[index],
+      ),
     );
   }
 }
