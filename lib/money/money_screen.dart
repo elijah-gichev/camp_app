@@ -1,7 +1,8 @@
 import 'package:camp_app/core/constants/app_fonts.dart';
 import 'package:camp_app/core/constants/app_strings.dart';
 import 'package:camp_app/core/utils/format.dart';
-import 'package:camp_app/core/widgets/day_of_operations_item.dart';
+import 'package:camp_app/core/widgets/two_rows_toolbar.dart';
+import 'package:camp_app/money/widgets/day_of_operations_item.dart';
 import 'package:camp_app/core/widgets/loading.dart';
 import 'package:camp_app/money/bloc/day_entry.dart';
 import 'package:camp_app/money/bloc/money_bloc.dart';
@@ -31,8 +32,12 @@ class _MoneyScreenState extends State<MoneyScreen> {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(title: const Text("ВитаPay"),),
-            body: const MoneyBody(),
+            body: Column(
+              children: [
+                TwoRowsToolbar(balance: _getBalance(state)),
+                const Expanded(child: MoneyBody()),
+              ],
+            ),
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.qr_code),
               onPressed: () {
@@ -48,6 +53,13 @@ class _MoneyScreenState extends State<MoneyScreen> {
   void _navigateToPay(BuildContext context) {
     Navigator.pushNamed(context, Routes.qrScanner).then(
         (value) => context.read<MoneyBloc>().add(MoneyDataLoadRequested()));
+  }
+
+  double _getBalance(MoneyState state) {
+    if (state is MoneyLoadSuccess) {
+      return state.balance;
+    }
+    return .0;
   }
 }
 
@@ -66,10 +78,7 @@ class MoneyBody extends StatelessWidget {
           if (state is MoneyLoadInProgress) {
             return loading();
           } else if (state is MoneyLoadSuccess) {
-            return MoneyContent(
-              dayEntries: state.dayEntries,
-              balance: state.balance,
-            );
+            return MoneyContent(dayEntries: state.dayEntries);
           }
           return Container();
         },
@@ -80,12 +89,10 @@ class MoneyBody extends StatelessWidget {
 
 class MoneyContent extends StatelessWidget {
   final List<DayEntry> dayEntries;
-  final double balance;
 
   const MoneyContent({
     Key? key,
     required this.dayEntries,
-    required this.balance,
   }) : super(key: key);
 
   @override
@@ -95,16 +102,10 @@ class MoneyContent extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 86),
-            itemCount: dayEntries.length + 1,
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return MoneySummary(balance: balance);
-              } else {
-                return DayOfOperationsItem(
-                  dayEntry: dayEntries[index - 1],
-                );
-              }
-            },
+            itemCount: dayEntries.length,
+            itemBuilder: (context, index) => DayOfOperationsItem(
+              dayEntry: dayEntries[index],
+            ),
           ),
         ),
       ],
