@@ -63,7 +63,7 @@ class LoginScreentView extends StatelessWidget {
             }
 
             if (state is AuthLoadingDone) {
-              Navigator.pushNamed(context, Routes.mainPage);
+              Navigator.pushReplacementNamed(context, Routes.mainPage);
             }
           },
           builder: (context, state) {

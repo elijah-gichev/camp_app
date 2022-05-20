@@ -1,5 +1,8 @@
+import 'package:camp_app/core/constants/routes.dart';
+import 'package:camp_app/splash/cubit/splash_cubit.dart';
 import 'package:concentric_transition/concentric_transition.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 final pages = [
   const PageData(
@@ -38,7 +41,8 @@ class OnboardingPage extends StatelessWidget {
           Icons.navigate_next,
           size: screenWidth * 0.1,
         ),
-        // itemCount: pages.length,
+        itemCount: pages.length,
+        onFinish: _finishOnboarding(context),
         duration: const Duration(milliseconds: 1500),
         // opacityFactor: 2.0,
         // scaleFactor: 0.2,
@@ -54,6 +58,11 @@ class OnboardingPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  _finishOnboarding(BuildContext context) {
+    context.read<SplashCubit>().fisrtLaunchHappend();
+    Navigator.pushReplacementNamed(context, Routes.mainPage);
   }
 }
 
