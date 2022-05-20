@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 class UserService with ChangeNotifier {
   User? _user;
 
-  void createUser(User user) {
+  void createUser(User? user) {
     _user = user;
   }
 

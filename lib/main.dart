@@ -1,22 +1,22 @@
 import 'package:camp_app/auth/service/auth_service.dart';
 import 'package:camp_app/core/router.dart';
-import 'package:camp_app/onboarding/onboarding_page.dart';
-import 'package:camp_app/splash/splash_screen.dart';
-import 'package:flutter/foundation.dart';
+import 'package:camp_app/core/services/local_user_service.dart';
+
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/core/utils/bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
+late SharedPreferences prefs;
 
 void main() async {
-  setup();
+  await setup();
   final storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
@@ -27,13 +27,26 @@ void main() async {
   );
 }
 
-void setup() {
+Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   final dioService = DioService.baseClient();
+  prefs = await SharedPreferences.getInstance();
+
+  final localUserService = LocalUserService(prefs);
+  final userService = UserService();
+
+  if (localUserService.isUserSaved) {
+    final user = localUserService.getLocalUser();
+    userService.createUser(user);
+
+    dioService.addIdInterceptor(user!.id);
+  }
 
   getIt.registerSingleton<DioService>(dioService);
   getIt.registerSingleton<AuthService>(AuthService(dioService));
-  getIt.registerSingleton<UserService>(UserService());
+  getIt.registerSingleton<LocalUserService>(localUserService);
+  getIt.registerSingleton<UserService>(userService);
 }
 
 class App extends StatelessWidget {

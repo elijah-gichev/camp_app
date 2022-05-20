@@ -4,6 +4,7 @@ import 'package:camp_app/auth/widgets/login_button.dart';
 import 'package:camp_app/auth/widgets/login_input.dart';
 import 'package:camp_app/auth/widgets/login_title.dart';
 import 'package:camp_app/core/constants/routes.dart';
+import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/main.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class LoginScreen extends StatelessWidget {
             create: (_) => AuthBloc(
               authService: getIt<AuthService>(),
               userService: getIt<UserService>(),
+              dioService: getIt<DioService>(),
             ),
             child: LoginScreentView(
               phoneNumberController: _phoneNumberController,
