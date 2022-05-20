@@ -106,7 +106,7 @@ class LoginScreentView extends StatelessWidget {
                     builder: (context, state) {
                       return LoginButton(
                         onPressed: () {
-                          final phoneNumber = '+' + phoneNumberController.text;
+                          final phoneNumber = phoneNumberController.text;
 
                           context.read<AuthBloc>().add(
                                 AuthInProgress(

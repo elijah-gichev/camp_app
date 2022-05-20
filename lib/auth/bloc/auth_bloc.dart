@@ -20,14 +20,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthLoading());
 
         final phone = event.phone;
-        final resUser = await authService.login(phone: phone);
+        final resUser = await authService.login(phone: phone).timeout(
+              const Duration(seconds: 5),
+            );
 
         userService.createUser(resUser);
 
         emit(AuthLoadingDone(resUser));
-      } catch (e) {
-        const msg = 'Что-то пошло не так!';
-        emit(AuthLoadingFailure(msg));
+      } on MyException catch (e) {
+        print(event.phone);
+        emit(AuthLoadingFailure(e.msg));
       }
     });
   }

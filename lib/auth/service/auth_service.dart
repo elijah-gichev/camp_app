@@ -1,5 +1,6 @@
 import 'package:camp_app/core/models/user.dart';
 import 'package:camp_app/core/services/dio_service.dart';
+import 'package:dio/dio.dart';
 
 class AuthService {
   final DioService dioService;
@@ -8,21 +9,41 @@ class AuthService {
     this.dioService,
   );
 
-  final String fakePhone = '+12345678910';
   Future<User> login({
     required String phone,
   }) async {
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      var res = await dioService.client.post(
+        '/auth/login',
+        data: {
+          "phone": phone,
+        },
+      );
 
-    if (phone == fakePhone) {
-      return User.fake();
+      Map<String, dynamic> body = (res.data as Map<String, dynamic>);
+
+      final user = User.fromMap(body);
+
+      return user;
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 404) {
+        throw UserNotFoundException('Данный пользователь не найден!');
+      }
+
+      throw OtherException('Что-то пошло не так!');
     }
-
-    throw UserNotFoundException('Данный пользователь не найден!');
   }
 }
 
-class UserNotFoundException implements Exception {
+class MyException implements Exception {
   final String msg;
-  UserNotFoundException(this.msg);
+  MyException(this.msg);
+}
+
+class UserNotFoundException extends MyException {
+  UserNotFoundException(String msg) : super(msg);
+}
+
+class OtherException extends MyException {
+  OtherException(String msg) : super(msg);
 }

@@ -11,6 +11,9 @@ class AuthLoadingDone extends AuthState {
   final User user;
 
   AuthLoadingDone(this.user);
+
+  @override
+  String toString() => 'AuthLoadingDone(user: $user)';
 }
 
 class AuthLoadingFailure extends AuthState {

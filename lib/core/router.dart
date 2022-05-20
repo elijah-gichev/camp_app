@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class AppRouter {
   Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case Routes.auth:
+      case Routes.splashScreen:
         return MaterialPageRoute(
           builder: (_) => LoginScreen(),
         );

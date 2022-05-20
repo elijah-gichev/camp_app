@@ -4,9 +4,12 @@ import 'package:camp_app/onboarding/onboarding_page.dart';
 import 'package:camp_app/splash/splash_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:camp_app/core/services/dio_service.dart';
+import 'package:camp_app/core/services/user_service.dart';
+import 'package:camp_app/core/utils/bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 
@@ -20,6 +23,7 @@ void main() async {
   HydratedBlocOverrides.runZoned(
     () => runApp(App()),
     storage: storage,
+    blocObserver: SimpleBlocObserver(),
   );
 }
 
@@ -29,6 +33,7 @@ void setup() {
 
   getIt.registerSingleton<DioService>(dioService);
   getIt.registerSingleton<AuthService>(AuthService(dioService));
+  getIt.registerSingleton<UserService>(UserService());
 }
 
 class App extends StatelessWidget {

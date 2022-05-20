@@ -11,15 +11,6 @@ class LoginInput extends StatelessWidget {
   })  : _phoneNumberController = phoneNumberController,
         super(key: key);
 
-  String dropDownIndent(int phonePrefixLength) {
-    int countSpaces = 12 + phonePrefixLength;
-    String spaces = '';
-    for (int i = 0; i < countSpaces; ++i) {
-      spaces += ' ';
-    }
-    return spaces;
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -40,7 +31,7 @@ class LoginInput extends StatelessWidget {
                 borderSide: BorderSide.none,
               ),
               counterText: '',
-              prefixText: '+',
+              prefixText: '',
             ),
             onChanged: (phone) {
               //context.read<LoginCubit>().phoneChanged(fullPhoneNumber);
