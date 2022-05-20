@@ -3,9 +3,13 @@ import 'package:dio/dio.dart';
 class DioService {
   final Dio client;
 
-  DioService(this.client);
+  DioService(this.client) {
+    client.options.validateStatus = (status) {
+      return status! >= 200 && status < 500;
+    };
+  }
 
-  static const devBaseUrl = 'https://camp-app-hackathon.herokuapp.com';
+  static const devBaseUrl = 'https://camp-app-hackathon.herokuapp.com/api';
 
   DioService.baseClient()
       : client = Dio(
