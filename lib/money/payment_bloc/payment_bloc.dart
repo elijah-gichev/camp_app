@@ -31,16 +31,12 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
       try {
         emit(PaymentLoading());
 
-        final success = await paymentService.pay(
+        await paymentService.pay(
           sellerId: paymentArgument.sellerId,
           sum: paymentArgument.sum,
         );
 
-        if (success) {
-          emit(PaymentDone());
-        } else {
-          emit(PaymentFailure('Что-то пошло не так!'));
-        }
+        emit(PaymentDone());
       } on PaymentException catch (e) {
         emit(PaymentFailure(e.msg));
       }

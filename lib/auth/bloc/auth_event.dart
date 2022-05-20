@@ -10,3 +10,5 @@ class AuthInProgress extends AuthEvent {
     required this.phone,
   });
 }
+
+class AuthCheckIsLogged extends AuthEvent {}

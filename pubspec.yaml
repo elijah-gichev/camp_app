@@ -52,6 +52,8 @@ dependencies:
 
   qr_code_scanner: ^0.7.0
 
+  another_flushbar: ^1.10.27
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

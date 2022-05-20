@@ -17,36 +17,11 @@ class DioService {
       : client = Dio(
           BaseOptions(
             baseUrl: devBaseUrl,
-            contentType: Headers.jsonContentType,
+            //contentType: Headers.jsonContentType,
           ),
         );
 
   void addIdInterceptor(int id) {
-    client.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) {
-          options.headers[authTokenHeaderName] = id;
-        },
-        // onResponse: (Response response) => responseInterceptor(response),
-        // onError: (DioError dioError) => errorInterceptor(dioError),
-      ),
-    );
+    client.options.headers[authTokenHeaderName] = id;
   }
 }
-
-// class _TokenInterceptor extends AuthInterceptor {
-//   final authTokenHeaderName = 'X-Auth-Token';
-
-//   String? authToken;
-
-//   _TokenInterceptor({this.authToken});
-
-//   @override
-//   Future<dynamic> onRequest(RequestOptions options) {
-//     if (authToken != null) {
-//       options.headers[authTokenHeaderName] = authToken;
-//     }
-
-//     return super.onRequest(options);
-//   }
-// }
