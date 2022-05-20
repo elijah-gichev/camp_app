@@ -6,6 +6,7 @@ import 'package:camp_app/auth/widgets/login_title.dart';
 import 'package:camp_app/core/constants/routes.dart';
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
+import 'package:camp_app/core/widgets/show_snackbar.dart';
 import 'package:camp_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -134,11 +135,4 @@ class LoginScreentView extends StatelessWidget {
       ],
     );
   }
-}
-
-void showSnackBar({
-  required BuildContext context,
-  required String message,
-}) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
 }

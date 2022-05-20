@@ -35,15 +35,15 @@ class AuthService {
   }
 }
 
-class MyException implements Exception {
+class AuthException implements Exception {
   final String msg;
-  MyException(this.msg);
+  AuthException(this.msg);
 }
 
-class UserNotFoundException extends MyException {
+class UserNotFoundException extends AuthException {
   UserNotFoundException(String msg) : super(msg);
 }
 
-class OtherException extends MyException {
+class OtherException extends AuthException {
   OtherException(String msg) : super(msg);
 }

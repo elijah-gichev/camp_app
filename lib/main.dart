@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camp_app/auth/service/auth_service.dart';
 import 'package:camp_app/core/router.dart';
 import 'package:camp_app/core/services/local_user_service.dart';
@@ -5,6 +7,7 @@ import 'package:camp_app/core/services/local_user_service.dart';
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/core/utils/bloc_observer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -29,6 +32,9 @@ void main() async {
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (!kReleaseMode) {
+    HttpOverrides.global = DebugHttpOverrides();
+  }
 
   final dioService = DioService.baseClient();
   prefs = await SharedPreferences.getInstance();
@@ -69,5 +75,12 @@ class App extends StatelessWidget {
         return child!;
       },
     );
+  }
+}
+
+class DebugHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }

@@ -3,11 +3,11 @@ import 'package:camp_app/core/constants/app_strings.dart';
 import 'package:camp_app/core/utils/format.dart';
 import 'package:camp_app/core/widgets/day_of_operations_item.dart';
 import 'package:camp_app/core/widgets/loading.dart';
-import 'package:camp_app/main.dart';
 import 'package:camp_app/money/bloc/day_entry.dart';
 import 'package:camp_app/money/bloc/money_bloc.dart';
 import 'package:camp_app/money/bloc/money_event.dart';
 import 'package:camp_app/money/bloc/money_state.dart';
+import 'package:camp_app/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +46,7 @@ class _MoneyScreenState extends State<MoneyScreen> {
   }
 
   void _navigateToPay(BuildContext context) {
-    Navigator.pushNamed(context, "").then(
+    Navigator.pushNamed(context, Routes.qrScanner).then(
         (value) => context.read<MoneyBloc>().add(MoneyDataLoadRequested()));
   }
 }
