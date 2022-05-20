@@ -1,4 +1,6 @@
 import 'package:camp_app/core/constants/app_colors.dart';
+import 'package:camp_app/core/constants/app_strings.dart';
+import 'package:camp_app/main/main_screen_view.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -20,9 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Text('main page'),
-      ),
+      body: MainScreenView(page: _pageIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         onTap: _onPageSelected,
@@ -31,16 +31,16 @@ class _MainScreenState extends State<MainScreen> {
         unselectedItemColor: AppColors.secondaryText,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Главная",
+            icon: Icon(Icons.account_balance_wallet_outlined),
+            label: AppStrings.money,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.gamepad),
-            label: "Счета",
+            icon: Icon(Icons.list),
+            label: AppStrings.shifts,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit),
-            label: "Инвестиции",
+            icon: Icon(Icons.person),
+            label: AppStrings.profile,
           ),
         ],
       ),
