@@ -10,7 +10,6 @@ class LocalUserService {
   static const _emailKey = 'email_key';
   static const _phoneKey = 'phone_key';
   static const _roleKey = 'role_key';
-
   static const _cashKey = 'cash_key';
 
   final SharedPreferences prefs;
@@ -48,6 +47,15 @@ class LocalUserService {
       );
     }
     return null;
+  }
+
+  Future<void> saveLocalUser(User user) async {
+    prefs.setInt(_idKey, user.id);
+    prefs.setString(_nameKey, user.name);
+    prefs.setString(_emailKey, user.email);
+    prefs.setString(_phoneKey, user.phone);
+    prefs.setString(_roleKey, user.role.toApiString());
+    prefs.setDouble(_cashKey, user.cash);
   }
 
   void clear() {

@@ -22,3 +22,5 @@ class AuthLoadingFailure extends AuthState {
     this.msg,
   );
 }
+
+class AuthAlreadyLogged extends AuthState {}
