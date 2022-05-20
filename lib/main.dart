@@ -1,22 +1,28 @@
-import 'package:camp_app/onboarding/onboarding_page.dart';
+import 'package:camp_app/core/router.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  setup();
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+void setup() {
+  WidgetsFlutterBinding.ensureInitialized();
+  //getIt.registerSingleton<UserService>(UserService());
+}
 
-  // This widget is the root of your application.
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Camp app',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const OnboardingPage(),
+      onGenerateRoute: AppRouter().onGenerateRoute,
+      //home: const MyHomePage(title: 'Camp app'),
     );
   }
 }
