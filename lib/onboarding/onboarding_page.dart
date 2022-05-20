@@ -3,13 +3,13 @@ import 'package:camp_app/splash/cubit/splash_cubit.dart';
 import 'package:concentric_transition/concentric_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final pages = [
   const PageData(
     icon: Icons.format_size,
     title: "Choose your\ninterests",
-    description:
-        " Long description Long description Long description Long description",
+    description: " Long description Long description Long description Long description",
     textColor: Colors.white,
     bgColor: Color(0xFFFDBFDD),
   ),
@@ -31,18 +31,17 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: ConcentricPageView(
         colors: pages.map((p) => p.bgColor).toList(),
-        radius: screenWidth * 0.12,
+        radius: 0.12.sw,
         curve: Curves.ease,
         nextButtonBuilder: (context) => Icon(
           Icons.navigate_next,
-          size: screenWidth * 0.1,
+          size: 0.1.sw,
         ),
         itemCount: pages.length,
-        onFinish: _finishOnboarding(context),
+        onFinish: context.read<SplashCubit>().fisrtLaunchHappend,
         duration: const Duration(milliseconds: 1500),
         // opacityFactor: 2.0,
         // scaleFactor: 0.2,
@@ -58,11 +57,6 @@ class OnboardingPage extends StatelessWidget {
         },
       ),
     );
-  }
-
-  _finishOnboarding(BuildContext context) {
-    context.read<SplashCubit>().fisrtLaunchHappend();
-    Navigator.pushReplacementNamed(context, Routes.mainPage);
   }
 }
 
@@ -174,8 +168,7 @@ class _Image extends StatelessWidget {
         .withRed(page.bgColor.red - 100)
         .withAlpha(90);
 
-    final icon1Color =
-        page.bgColor.withBlue(page.bgColor.blue - 10).withGreen(220);
+    final icon1Color = page.bgColor.withBlue(page.bgColor.blue - 10).withGreen(220);
     final icon2Color = page.bgColor.withGreen(66).withRed(77);
     final icon3Color = page.bgColor.withRed(111).withGreen(220);
 

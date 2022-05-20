@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return BlocProvider(
       lazy: false,
       create: (context) => SplashCubit(),
-      child: SplashScreenView(),
+      child: const SplashScreenView(),
     );
   }
 }
@@ -39,4 +39,3 @@ class SplashScreenView extends StatelessWidget {
     );
   }
 }
-
