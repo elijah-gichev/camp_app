@@ -29,33 +29,27 @@ class CurrentActivity extends HookWidget {
       ..forward()
       ..repeat();
     useAnimation(shadowOffseAnimation);
+    final transformer = KidCardTransformer(
+      shadowOffset: shadowOffseAnimation.value,
+      shadowColor: _colorFromValue(shadowColorAnimation.value),
+    );
     return Align(
       alignment: Alignment.centerLeft,
       child: Hero(
         tag: 'dinner',
         flightShuttleBuilder: (
-          BuildContext flightContext,
-          Animation<double> animation,
-          HeroFlightDirection flightDirection,
-          BuildContext fromHeroContext,
-          BuildContext toHeroContext,
-        ) {
-          return Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
-              ),
-              color: Colors.white,
-              shape: BoxShape.rectangle,
-            ),
-          );
-        },
+          _,
+          __,
+          ___,
+          ____,
+          ______,
+        ) =>
+            FlightShuttleBuilder(
+          kidCardTransformer: transformer,
+        ),
         child: KidCard(
           title: "13:15 Обед",
-          kidCardTransformer: KidCardTransformer(
-            shadowOffset: shadowOffseAnimation.value,
-            shadowColor: _colorFromValue(shadowColorAnimation.value),
-          ),
+          kidCardTransformer: transformer,
           onTap: () {
             Navigator.push(
               context,
@@ -81,6 +75,42 @@ class CurrentActivity extends HookWidget {
   }
 }
 
+class FlightShuttleBuilder extends StatelessWidget {
+  final KidCardTransformer kidCardTransformer;
+
+  const FlightShuttleBuilder({
+    Key? key,
+    required this.kidCardTransformer,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20),
+        ),
+        shape: BoxShape.rectangle,
+        boxShadow: [
+          BoxShadow(
+            color: kidCardTransformer.shadowColor ??
+                const Color(0xff4D5DFA).withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: kidCardTransformer.shadowOffset == null
+                ? Offset.zero
+                : Offset(
+                    sin(4 * pi * kidCardTransformer.shadowOffset!) * 2,
+                    cos(6 * pi * kidCardTransformer.shadowOffset!) * 2,
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class CircularRectTween extends Tween<Rect?> {
   CircularRectTween({required Rect? begin, required Rect? end})
       : super(begin: begin, end: end) {}
@@ -103,9 +133,9 @@ class TestPage extends StatelessWidget {
     return Hero(
       tag: 'dinner',
       createRectTween: _createRectTween,
-      child: Scaffold(
+      child: const Scaffold(
         backgroundColor: Colors.white,
-        body: const Center(
+        body: Center(
           child: Text(
             "Тут скоро появится крутое расписание!",
             textAlign: TextAlign.center,

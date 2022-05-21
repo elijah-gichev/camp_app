@@ -7,7 +7,7 @@ class KidCard extends HookWidget {
   final String title;
   final String? subtitle;
   final Widget? status;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Widget? action;
   final Widget? icon;
   final EdgeInsets? edgeInsets;
@@ -16,7 +16,7 @@ class KidCard extends HookWidget {
   KidCard({
     Key? key,
     required this.title,
-    required this.onTap,
+    this.onTap,
     this.status,
     this.kidCardTransformer,
     this.subtitle,
@@ -52,7 +52,7 @@ class KidCard extends HookWidget {
             },
             onTap: () async {
               await buttonPressedState;
-              onTap.call();
+              onTap?.call();
             },
             child: Center(
               child: Container(
