@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -12,4 +11,9 @@ class AppColors {
   static const Color red = Color(0xFFE6492D);
   static const Color secondaryText = Color(0x66222222);
   static const Color iconBg = Color(0x1A000000);
+
+  static const Color violet = Color.fromRGBO(77, 93, 250, 1);
+  static const Color violetLight = Color.fromRGBO(237, 239, 255, 1);
+  static const Color greenLight = Color.fromRGBO(237, 255, 244, 1);
+  static const Color blue = Color.fromRGBO(77, 167, 250, 1);
 }

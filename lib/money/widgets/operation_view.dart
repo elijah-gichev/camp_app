@@ -56,9 +56,14 @@ class _OperationViewState extends State<OperationView> with SingleTickerProvider
       title = widget.operation.shop.title;
       subtitle = widget.operation.shop.category;
     }
+    var showAnim = false;
+    if (widget.operation.showAppearAnim) {
+      widget.operation.showAppearAnim = false;
+      showAnim = true;
+    }
     return FadeTransition(
       opacity: Tween<double>(
-        begin: widget.operation.showAppearAnim ? 0 : 1,
+        begin: showAnim ? 0 : 1,
         end: 1.0,
       ).animate(CurvedAnimation(
         parent: _controller,
@@ -66,7 +71,7 @@ class _OperationViewState extends State<OperationView> with SingleTickerProvider
       )),
       child: SlideTransition(
         position: Tween<Offset>(
-          begin: Offset(widget.operation.showAppearAnim ? -1 : 0, 0),
+          begin: Offset(showAnim ? -1 : 0, 0),
           end: const Offset(0, 0),
         ).animate(CurvedAnimation(
           parent: _controller,
