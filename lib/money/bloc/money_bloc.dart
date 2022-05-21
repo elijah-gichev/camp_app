@@ -11,15 +11,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
   final OperationService operationService;
-  final UserService userService;
+  final int childId;
 
   late final StreamSubscription<DatabaseEvent> subs;
 
   DatabaseReference childOperationEventsRef = FirebaseDatabase.instance.ref("/childOperationEvents");
 
-  int childId = 0;
 
-  MoneyBloc({required this.operationService, required this.userService}) : super(MoneyInitial()) {
+  MoneyBloc({required this.operationService, required this.childId}) : super(MoneyInitial()) {
     on<MoneyDataLoadRequested>((event, emit) async {
       await _loadData(emit, event.isInBackground);
     });
@@ -39,7 +38,7 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
       if (!isInBackground) {
         emit(MoneyLoadInProgress());
       }
-      final account = await operationService.getUserAccount(userId: userService.user!.id);
+      final account = await operationService.getUserAccount(userId: childId);
 
       if (state is MoneyLoadSuccess && isInBackground) {
         final oldOperations = (state as MoneyLoadSuccess).dayEntries.map((e) => e.operations).flattened;
@@ -53,10 +52,8 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
       emit(MoneyLoadSuccess(
         expenses: account.expenses,
         dayEntries: convertToDayEntries(account.operations),
-        balance: account.owner.cash,
+        user: account.owner,
       ));
-
-      childId = account.owner.id;
     } on Exception catch (error) {
       if (!isInBackground) {
         emit(MoneyLoadError(error));

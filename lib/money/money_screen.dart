@@ -20,7 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoneyScreen extends StatefulWidget {
-  const MoneyScreen({Key? key}) : super(key: key);
+  final int childId;
+  const MoneyScreen({Key? key, required this.childId}) : super(key: key);
 
   @override
   State<MoneyScreen> createState() => _MoneyScreenState();
@@ -31,8 +32,8 @@ class _MoneyScreenState extends State<MoneyScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MoneyBloc(
-        userService: getIt<UserService>(),
         operationService: OperationService(getIt<DioService>()),
+        childId: widget.childId
       )..add(MoneyDataLoadRequested()),
       child: BlocConsumer<MoneyBloc, MoneyState>(
         listener: (context, state) {
@@ -45,7 +46,7 @@ class _MoneyScreenState extends State<MoneyScreen> {
             body: Column(
               children: [
                 CampAppBar(
-                  text: "Денис${_getBalance(state)}",
+                  text: _getTitle(state),
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
@@ -70,9 +71,9 @@ class _MoneyScreenState extends State<MoneyScreen> {
         (value) => context.read<MoneyBloc>().add(MoneyDataLoadRequested()));
   }
 
-  String _getBalance(MoneyState state) {
+  String _getTitle(MoneyState state) {
     if (state is MoneyLoadSuccess) {
-      return " (${state.balance.formatMoney()})";
+      return "${state.user.name.split(" ")[1]}(${state.user.cash.formatMoney()})";
     }
     return "";
   }
