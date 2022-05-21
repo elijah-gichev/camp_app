@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:camp_app/core/models/operation.dart';
 import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/money/bloc/day_entry.dart';
@@ -13,23 +15,20 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
   final OperationService operationService;
   final UserService userService;
 
-  DatabaseReference childOperationEventsRef =
-      FirebaseDatabase.instance.ref("/childOperationEvents");
+  late final StreamSubscription<DatabaseEvent> subs;
+
+  DatabaseReference childOperationEventsRef = FirebaseDatabase.instance.ref("/childOperationEvents");
 
   int childId = 0;
 
-  MoneyBloc({required this.operationService, required this.userService})
-      : super(MoneyInitial()) {
+  MoneyBloc({required this.operationService, required this.userService}) : super(MoneyInitial()) {
     on<MoneyDataLoadRequested>((event, emit) async {
       await _loadData(emit, event.isInBackground);
     });
     on<MoneyPayPressed>((event, emit) async {
       emit(MoneyNavToPay());
     });
-    childOperationEventsRef
-        .limitToLast(1)
-        .onChildAdded
-        .listen((DatabaseEvent event) async {
+    subs = childOperationEventsRef.limitToLast(1).onChildAdded.listen((DatabaseEvent event) async {
       final data = event.snapshot.value as Map<dynamic, dynamic>;
       if (childId == data['childId'] as int) {
         add(MoneyDataLoadRequested(isInBackground: true));
@@ -42,13 +41,12 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
       if (!isInBackground) {
         emit(MoneyLoadInProgress());
       }
-      final account =
-          await operationService.getUserAccount(userId: userService.user!.id);
+      final account = await operationService.getUserAccount(userId: userService.user!.id);
 
       if (state is MoneyLoadSuccess && isInBackground) {
         final oldOperations = (state as MoneyLoadSuccess).dayEntries.map((e) => e.operations).flattened;
         for (var element in account.operations) {
-          if(!oldOperations.map((e) => e.id).contains(element.id)) {
+          if (!oldOperations.map((e) => e.id).contains(element.id)) {
             element.showAppearAnim = true;
           }
         }
@@ -70,12 +68,17 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
 
   List<DayEntry> _convertToDayEntries(List<Operation> operations) {
     final List<DayEntry> days = [];
-    groupBy(operations.sortedBy((Operation o) => o.created_at).reversed,
-        (Operation o) {
+    groupBy(operations.sortedBy((Operation o) => o.created_at).reversed, (Operation o) {
       return DateFormat('yyyyMMdd').format(o.created_at);
     }).forEach((key, value) {
       days.add(DayEntry(DateTime.parse(key), value));
     });
     return days;
+  }
+
+  @override
+  Future<void> close() {
+    subs.cancel();
+    return super.close();
   }
 }

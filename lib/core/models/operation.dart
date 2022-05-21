@@ -25,6 +25,16 @@ class Operation {
     this.shop,
   );
 
+  factory Operation.sample(User user) {
+    return Operation(
+      1,
+      150,
+      DateTime.now(),
+      user,
+      Shop('Магазин', 'Покупки'),
+    );
+  }
+
   Operation copyWith({
     int? id,
     double? sum,
@@ -45,7 +55,7 @@ class Operation {
     return {
       'id': id,
       'sum': sum,
-      'created_at': created_at.millisecondsSinceEpoch/1000,
+      'created_at': created_at.millisecondsSinceEpoch / 1000,
       'buyer': buyer.toMap(),
       'shop': shop.toMap(),
     };
@@ -55,7 +65,7 @@ class Operation {
     return Operation(
       map['id']?.toInt() ?? 0,
       map['sum']?.toDouble() ?? 0.0,
-      DateTime.fromMillisecondsSinceEpoch(map['created_at']*1000),
+      DateTime.fromMillisecondsSinceEpoch(map['created_at'] * 1000),
       User.fromMap(map['buyer']),
       Shop.fromMap(map['shop']),
     );

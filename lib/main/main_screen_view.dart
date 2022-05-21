@@ -1,6 +1,7 @@
 import 'package:camp_app/cart/cart.dart';
 import 'package:camp_app/cart/cart_bloc/cart_bloc.dart';
 import 'package:camp_app/money/money_screen.dart';
+import 'package:camp_app/shifts/screens/shifts_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,8 @@ class MainScreenView extends StatelessWidget {
       case 0:
         return const MoneyScreen();
       case 1:
-      // return ShiftsScreen();
+        // return ShiftsScreen();
+        return ShiftsScreen();
       case 2:
         // return ProfileScreen();
         return BlocProvider(
