@@ -9,6 +9,7 @@ class KidCard extends HookWidget {
   final Widget? status;
   final VoidCallback onTap;
   final Widget? action;
+  final Widget? icon;
   final EdgeInsets? edgeInsets;
   final KidCardTransformer? kidCardTransformer;
 
@@ -21,6 +22,7 @@ class KidCard extends HookWidget {
     this.subtitle,
     this.edgeInsets,
     this.action,
+    this.icon,
   }) : super(key: key);
   TickerFuture? buttonPressedState;
 
@@ -62,22 +64,19 @@ class KidCard extends HookWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                        color: kidCardTransformer?.shadowColor ??
-                            Color(0xff4D5DFA).withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: kidCardTransformer?.shadowOffset == null
-                            ? Offset.zero
-                            : Offset(
-                                sin(4 *
-                                        pi *
-                                        kidCardTransformer!.shadowOffset!) *
-                                    2,
-                                cos(6 *
-                                        pi *
-                                        kidCardTransformer!.shadowOffset!) *
-                                    2,
-                              )),
+                      color: kidCardTransformer?.shadowColor ??
+                          const Color(0xff4D5DFA).withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: kidCardTransformer?.shadowOffset == null
+                          ? Offset.zero
+                          : Offset(
+                              sin(4 * pi * kidCardTransformer!.shadowOffset!) *
+                                  2,
+                              cos(6 * pi * kidCardTransformer!.shadowOffset!) *
+                                  2,
+                            ),
+                    ),
                   ],
                 ),
                 child: Column(
@@ -93,14 +92,22 @@ class KidCard extends HookWidget {
                       padding: EdgeInsets.only(
                         bottom: bottomPaddingTitle.toDouble(),
                       ),
-                      child: Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 21,
-                          color: Color(0xff03314B),
-                        ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              title,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 21,
+                                color: Color(0xff03314B),
+                              ),
+                            ),
+                          ),
+                          if (icon != null) icon!,
+                        ],
                       ),
                     ),
                     if (subtitle != null)
@@ -132,11 +139,13 @@ class KidCardTransformer {
   final double? scale;
   final double? shadowOffset;
   final Color? shadowColor;
+  final Animation<Offset>? initAnimation;
 
   KidCardTransformer({
     this.angle,
     this.scale,
     this.shadowOffset,
     this.shadowColor,
+    this.initAnimation,
   });
 }

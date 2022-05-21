@@ -45,7 +45,7 @@ class CurrentActivity extends HookWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(20),
               ),
-              color: Colors.deepOrangeAccent,
+              color: Colors.white,
               shape: BoxShape.rectangle,
             ),
           );
@@ -104,9 +104,16 @@ class TestPage extends StatelessWidget {
       tag: 'dinner',
       createRectTween: _createRectTween,
       child: Scaffold(
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.white,
         body: const Center(
-          child: Text("Обед"),
+          child: Text(
+            "Тут скоро появится крутое расписание!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );
