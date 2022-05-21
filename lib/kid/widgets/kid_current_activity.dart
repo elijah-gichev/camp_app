@@ -60,6 +60,16 @@ class CurrentActivity extends HookWidget {
               ),
             );
           },
+          icon: Container(
+            width: 100,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Icon(
+                Icons.arrow_right_alt,
+                size: 26,
+              ),
+            ),
+          ),
         ),
       ),
     );

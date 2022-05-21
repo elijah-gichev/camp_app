@@ -9,4 +9,6 @@ abstract class Routes {
   static const String kidMain = '/kid_main';
 
   static const String calendar = '/calendar';
+
+  static const String adventure = '/adventure';
 }

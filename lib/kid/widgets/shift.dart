@@ -22,10 +22,10 @@ class Shift extends StatelessWidget {
             status: const KidCardActiveStatus(
               activeStatus: ActiveStatus.active,
             ),
-            subtitle: "Заезд 1-3 июня",
+            subtitle: "Корпус №3 Отряд №2",
             onTap: () {},
             action: const KidCardButton(
-              title: "Смотреть всю активность",
+              title: "Смотреть активность",
             ),
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:camp_app/auth/screens/login_screen.dart';
 import 'package:camp_app/core/constants/routes.dart';
 import 'package:camp_app/core/services/dio_service.dart';
+import 'package:camp_app/kid/adventure/adventure_page.dart';
 import 'package:camp_app/kid/calendar/calendar_page.dart';
 import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 import 'package:camp_app/main.dart';
@@ -16,9 +17,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppRouter {
   Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case '/':
+      case Routes.adventure:
         return MaterialPageRoute(
-          builder: (context) => const KidMainPage(),
+          builder: (context) => const AdventurePage(),
+        );
+      case Routes.calendar:
+        return MaterialPageRoute(
+          builder: (context) => const CalendarPage(),
         );
       case Routes.kidMain:
         return MaterialPageRoute(

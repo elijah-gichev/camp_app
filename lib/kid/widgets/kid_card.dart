@@ -89,28 +89,29 @@ class KidCard extends HookWidget {
                         padding: const EdgeInsets.only(bottom: 5),
                         child: status,
                       ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: bottomPaddingTitle.toDouble(),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              title,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 21,
-                                color: KidTheme.of(context).cardTextColor,
+                    if (title != 'null')
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: bottomPaddingTitle.toDouble(),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                title,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 21,
+                                  color: KidTheme.of(context).cardTextColor,
+                                ),
                               ),
                             ),
-                          ),
-                          if (icon != null) icon!,
-                        ],
+                            if (icon != null) icon!,
+                          ],
+                        ),
                       ),
-                    ),
                     if (subtitle != null)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 9),

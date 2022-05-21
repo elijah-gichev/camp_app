@@ -14,6 +14,7 @@ class KidCardButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: 10,
+        horizontal: 10,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -24,6 +25,7 @@ class KidCardButton extends StatelessWidget {
       child: Center(
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 15,

@@ -1,3 +1,4 @@
+import 'package:camp_app/kid/widgets/kid_card_button.dart';
 import 'package:flutter/material.dart';
 
 import 'kid_card.dart';
@@ -15,9 +16,10 @@ class Sections extends StatelessWidget {
       ),
       edgeInsets: const EdgeInsets.symmetric(
         horizontal: 15,
-        vertical: 25,
+        vertical: 15,
       ),
-      title: "Секции",
+      action: KidCardButton(title: 'Чат отряда \n(3 сообщ.)'),
+      title: "null",
       onTap: () {},
     );
   }

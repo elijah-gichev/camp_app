@@ -16,6 +16,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'kid/main/ui/kid_main_page.dart';
+
 final getIt = GetIt.instance;
 late SharedPreferences prefs;
 
@@ -64,15 +66,17 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      child: MaterialApp(
-        title: 'Camp app',
-        supportedLocales: [
-          Locale('ru', ''),
-        ],
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: KidThemeProvider(
+        child: MaterialApp(
+          title: 'Camp app',
+          // supportedLocales: [
+          //   // Locale('ru', ''),
+          // ],
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          onGenerateRoute: router.onGenerateRoute,
         ),
-        onGenerateRoute: router.onGenerateRoute,
       ),
       designSize: const Size(375, 812),
       builder: (BuildContext context, Widget? child) {

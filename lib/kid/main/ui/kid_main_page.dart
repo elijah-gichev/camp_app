@@ -8,7 +8,7 @@ import '../../widgets/kid_current_activity.dart';
 import '../../widgets/kid_profile.dart';
 import '../../widgets/lid_money_balance.dart';
 import '../../widgets/my_shifts.dart';
-import '../../widgets/sections.dart';
+import '../../widgets/chat.dart';
 import '../../widgets/shift.dart';
 
 class KidMainPage extends StatelessWidget {
@@ -56,9 +56,7 @@ class KidMainPage extends StatelessWidget {
     ];
 
     return SafeArea(
-      child: KidThemeProvider(
-        child: _KidMainPage(cards: cards),
-      ),
+      child: _KidMainPage(cards: cards),
     );
   }
 }
@@ -143,7 +141,7 @@ class KidThemeProvider extends StatefulWidget {
 }
 
 class _KidThemeProviderState extends State<KidThemeProvider> {
-  KidThemeData kidThemeData = KidThemeData.dark();
+  KidThemeData kidThemeData = KidThemeData.light();
 
   @override
   Widget build(BuildContext context) {
