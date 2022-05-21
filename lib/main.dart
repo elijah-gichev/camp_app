@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camp_app/auth/service/auth_service.dart';
 import 'package:camp_app/core/router.dart';
+import 'package:camp_app/core/services/laravel_pusher_service.dart';
 import 'package:camp_app/core/services/local_user_service.dart';
 
 import 'package:camp_app/core/services/dio_service.dart';
