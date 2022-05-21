@@ -50,6 +50,7 @@ class KidMainPage extends StatelessWidget {
       const _Smena(),
       navbar(),
     ];
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF9FAFC),

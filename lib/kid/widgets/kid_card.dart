@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class KidCard extends StatelessWidget {
+class KidCard extends HookWidget {
   final String title;
   final String? subtitle;
   final Widget? status;
@@ -9,7 +10,7 @@ class KidCard extends StatelessWidget {
   final EdgeInsets? edgeInsets;
   final KidCardTransformer? kidCardTransformer;
 
-  const KidCard({
+  KidCard({
     Key? key,
     required this.title,
     required this.onTap,
@@ -19,68 +20,86 @@ class KidCard extends StatelessWidget {
     this.edgeInsets,
     this.action,
   }) : super(key: key);
+  TickerFuture? buttonPressedState;
 
   @override
   Widget build(BuildContext context) {
+    final scaleController = useAnimationController(
+      lowerBound: 0.9,
+      upperBound: 1,
+      initialValue: 1,
+      duration: Duration(milliseconds: 100),
+    );
+    useAnimation(scaleController);
+
     final bottomPaddingTitle = (action != null) ? 11 : 0;
     return IntrinsicWidth(
-      child: Transform.rotate(
-        angle: kidCardTransformer?.angle ?? 0,
-        child: InkWell(
-          onTap: onTap,
-          child: Center(
-            child: Container(
-              padding: edgeInsets ?? const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20),
+      child: Transform.scale(
+        scale: scaleController.value,
+        child: Transform.rotate(
+          angle: kidCardTransformer?.angle ?? 0,
+          child: GestureDetector(
+            onTapDown: (_) {
+              buttonPressedState = scaleController.reverse();
+            },
+            onTapUp: (_) async {
+              await buttonPressedState;
+              buttonPressedState = scaleController.forward();
+            },
+            child: Center(
+              child: Container(
+                padding: edgeInsets ?? const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff4D5DFA).withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                    ),
+                  ],
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xff4D5DFA).withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (status != null)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: status,
-                    ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: bottomPaddingTitle.toDouble(),
-                    ),
-                    child: Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 21,
-                        color: Color(0xff03314B),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (status != null)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: status,
                       ),
-                    ),
-                  ),
-                  if (subtitle != null)
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 9),
+                      padding: EdgeInsets.only(
+                        bottom: bottomPaddingTitle.toDouble(),
+                      ),
                       child: Text(
-                        subtitle!,
+                        title,
+                        textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 21,
                           color: Color(0xff03314B),
                         ),
                       ),
                     ),
-                  if (action != null) action!,
-                ],
+                    if (subtitle != null)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 9),
+                        child: Text(
+                          subtitle!,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff03314B),
+                          ),
+                        ),
+                      ),
+                    if (action != null) action!,
+                  ],
+                ),
               ),
             ),
           ),
@@ -92,8 +111,10 @@ class KidCard extends StatelessWidget {
 
 class KidCardTransformer {
   final double? angle;
+  final double? scale;
 
   KidCardTransformer({
     this.angle,
+    this.scale,
   });
 }
