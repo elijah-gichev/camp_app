@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -46,7 +48,10 @@ class KidCard extends HookWidget {
               await buttonPressedState;
               buttonPressedState = scaleController.forward();
             },
-            onTap: onTap,
+            onTap: () async {
+              await buttonPressedState;
+              onTap.call();
+            },
             child: Center(
               child: Container(
                 padding: edgeInsets ?? const EdgeInsets.all(15),
@@ -57,10 +62,22 @@ class KidCard extends HookWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0xff4D5DFA).withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                    ),
+                        color: kidCardTransformer?.shadowColor ??
+                            Color(0xff4D5DFA).withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: kidCardTransformer?.shadowOffset == null
+                            ? Offset.zero
+                            : Offset(
+                                sin(4 *
+                                        pi *
+                                        kidCardTransformer!.shadowOffset!) *
+                                    2,
+                                cos(6 *
+                                        pi *
+                                        kidCardTransformer!.shadowOffset!) *
+                                    2,
+                              )),
                   ],
                 ),
                 child: Column(
@@ -113,9 +130,13 @@ class KidCard extends HookWidget {
 class KidCardTransformer {
   final double? angle;
   final double? scale;
+  final double? shadowOffset;
+  final Color? shadowColor;
 
   KidCardTransformer({
     this.angle,
     this.scale,
+    this.shadowOffset,
+    this.shadowColor,
   });
 }

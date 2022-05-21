@@ -1,17 +1,34 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../main/ui/kid_main_page.dart';
 import 'kid_card.dart';
 
-class CurrentActivity extends StatelessWidget {
+class CurrentActivity extends HookWidget {
   const CurrentActivity({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final shadowColorAnimation = useAnimationController(
+      duration: Duration(seconds: 3),
+    );
+    final shadowOffseAnimation = useAnimationController(
+      duration: Duration(seconds: 6),
+    );
+
+    shadowColorAnimation
+      ..forward()
+      ..repeat();
+    useAnimation(shadowColorAnimation);
+    shadowOffseAnimation
+      ..forward()
+      ..repeat();
+    useAnimation(shadowOffseAnimation);
     return Align(
       alignment: Alignment.centerLeft,
       child: Hero(
@@ -35,6 +52,10 @@ class CurrentActivity extends StatelessWidget {
         },
         child: KidCard(
           title: "13:15 Обед",
+          kidCardTransformer: KidCardTransformer(
+            shadowOffset: shadowOffseAnimation.value,
+            shadowColor: _colorFromValue(shadowColorAnimation.value),
+          ),
           onTap: () {
             Navigator.push(
               context,
@@ -48,6 +69,15 @@ class CurrentActivity extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _colorFromValue(double value) {
+    return HSVColor.lerp(
+      HSVColor.fromColor(Colors.redAccent),
+      HSVColor.fromColor(Colors.deepPurpleAccent),
+      value,
+    )!
+        .toColor();
   }
 }
 
