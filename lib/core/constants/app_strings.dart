@@ -13,4 +13,10 @@ class AppStrings {
   static const account = "Счёт";
 
   static const expensesOnShift = "Траты за смену";
+
+  static const refillAccount = "Пополнить счёт";
+  static const operationHistory = "История операций";
+
+  static const myAccounts = "Мои счета";
+
 }
