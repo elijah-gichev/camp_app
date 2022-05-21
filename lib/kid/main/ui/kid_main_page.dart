@@ -183,7 +183,12 @@ class _CurrentActivity extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: KidCard(
         title: "13:15 Обед",
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => TestPage()),
+          );
+        },
       ),
     );
   }
@@ -267,6 +272,23 @@ class _BalanceMoneyWidget extends StatelessWidget {
         onTap: () {},
         action: const KidCardButton(
           title: "Потратить",
+        ),
+      ),
+    );
+  }
+}
+
+class TestPage extends StatelessWidget {
+  const TestPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: 'dinner',
+      child: Scaffold(
+        backgroundColor: Colors.yellow.withOpacity(0.2),
+        body: const Center(
+          child: Text("Обед"),
         ),
       ),
     );
