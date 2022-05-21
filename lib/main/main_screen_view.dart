@@ -1,5 +1,5 @@
 import 'package:camp_app/cart/cart.dart';
-import 'package:camp_app/cart/cart_bloc/cart_bloc.dart';
+import 'package:camp_app/cart/child_cart.dart';
 import 'package:camp_app/money/money_screen.dart';
 import 'package:camp_app/shifts/screens/shifts_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +20,10 @@ class MainScreenView extends StatelessWidget {
         return ShiftsScreen();
       case 2:
         // return ProfileScreen();
-        return BlocProvider(
-          create: (context) => CartBloc(),
-          child: CartPage(),
-        );
+
+        //return CartPage();
+
+        return ChildCartPage();
     }
     return Container();
   }

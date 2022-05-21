@@ -35,7 +35,7 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                left: 8.w,
+                left: 20.w,
                 right: 8.w,
               ),
               child: Container(

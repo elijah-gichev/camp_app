@@ -40,21 +40,21 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
                     Shift(
                       isCurrent: false,
                       title: '2 Смена 2022',
-                      allDate: 'Заезд 20-30 июня',
+                      allDate: 'Заезд 1-2 июня',
                     ),
                   ),
                   ShiftItem(
                     Shift(
                       isCurrent: true,
                       title: '1 Смена 2022',
-                      allDate: 'Заезд 20 мая-3 июня',
+                      allDate: 'Заезд 10-12 мая',
                     ),
                   ),
                   ShiftItem(
                     Shift(
                       isCurrent: false,
                       title: '3 Смена 2022',
-                      allDate: 'Заезд 1-14 июля',
+                      allDate: 'Заезд 1-3 июля',
                     ),
                   ),
                 ],
