@@ -1,14 +1,18 @@
 import 'package:camp_app/core/constants/app_fonts.dart';
 import 'package:camp_app/core/utils/date.dart';
 import 'package:camp_app/money/bloc/day_entry.dart';
+import 'package:camp_app/money/bloc/money_bloc.dart';
+import 'package:camp_app/money/bloc/money_state.dart';
 import 'package:camp_app/money/widgets/operation_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DayOfOperationsItem extends StatelessWidget {
-  const DayOfOperationsItem({Key? key, required this.dayEntry})
-      : super(key: key);
+  DayOfOperationsItem({Key? key, required this.dayEntry}) : super(key: key);
 
   final DayEntry dayEntry;
+
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
   @override
   Widget build(BuildContext context) {

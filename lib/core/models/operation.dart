@@ -15,6 +15,8 @@ class Operation {
 
   final Shop shop;
 
+  bool showAppearAnim = false;
+
   Operation(
     this.id,
     this.sum,
@@ -43,7 +45,7 @@ class Operation {
     return {
       'id': id,
       'sum': sum,
-      'created_at': created_at.millisecondsSinceEpoch,
+      'created_at': created_at.millisecondsSinceEpoch/1000,
       'buyer': buyer.toMap(),
       'shop': shop.toMap(),
     };
@@ -53,7 +55,7 @@ class Operation {
     return Operation(
       map['id']?.toInt() ?? 0,
       map['sum']?.toDouble() ?? 0.0,
-      DateTime.fromMillisecondsSinceEpoch(map['created_at']),
+      DateTime.fromMillisecondsSinceEpoch(map['created_at']*1000),
       User.fromMap(map['buyer']),
       Shop.fromMap(map['shop']),
     );
@@ -61,7 +63,7 @@ class Operation {
 
   String toJson() => json.encode(toMap());
 
-  factory Operation.fromJson(String source) => Operation.fromMap(json.decode(source));
+  factory Operation.fromJson(Map<String, dynamic> source) => Operation.fromMap(source);
 
   @override
   String toString() {

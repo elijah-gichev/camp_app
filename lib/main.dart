@@ -15,6 +15,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 final getIt = GetIt.instance;
 late SharedPreferences prefs;
@@ -33,6 +34,7 @@ void main() async {
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   if (!kReleaseMode) {
     HttpOverrides.global = DebugHttpOverrides();
   }
@@ -66,6 +68,7 @@ class App extends StatelessWidget {
     return ScreenUtilInit(
       child: MaterialApp(
         title: 'Camp app',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
