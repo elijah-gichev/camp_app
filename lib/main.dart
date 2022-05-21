@@ -4,6 +4,7 @@ import 'package:camp_app/auth/service/auth_service.dart';
 import 'package:camp_app/core/router.dart';
 import 'package:camp_app/core/services/laravel_pusher_service.dart';
 import 'package:camp_app/core/services/local_user_service.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
@@ -16,6 +17,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'kid/main/ui/kid_main_page.dart';
 
 final getIt = GetIt.instance;
 late SharedPreferences prefs;
@@ -66,13 +69,17 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      child: MaterialApp(
-        title: 'Camp app',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: KidThemeProvider(
+        child: MaterialApp(
+          title: 'Camp app',
+          // supportedLocales: [
+          //   // Locale('ru', ''),
+          // ],
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          onGenerateRoute: router.onGenerateRoute,
         ),
-        onGenerateRoute: router.onGenerateRoute,
       ),
       designSize: const Size(375, 812),
       builder: (BuildContext context, Widget? child) {
@@ -85,6 +92,8 @@ class App extends StatelessWidget {
 class DebugHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
