@@ -15,9 +15,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppRouter {
   Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case '/':
+      case Routes.kidMain:
         return MaterialPageRoute(
-          builder: (context) => KidMainPage(),
+          builder: (context) => const KidMainPage(),
         );
       case Routes.mainPage:
         return MaterialPageRoute(

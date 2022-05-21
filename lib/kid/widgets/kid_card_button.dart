@@ -11,7 +11,6 @@ class KidCardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(
         vertical: 10,
       ),
