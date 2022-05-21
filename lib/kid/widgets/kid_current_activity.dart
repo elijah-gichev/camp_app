@@ -95,7 +95,7 @@ class FlightShuttleBuilder extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: kidCardTransformer.shadowColor ??
-                const Color(0xff4D5DFA).withOpacity(0.2),
+                KidTheme.of(context).buttonTextColor.withOpacity(0.2),
             spreadRadius: 1,
             blurRadius: 5,
             offset: kidCardTransformer.shadowOffset == null
@@ -133,9 +133,9 @@ class TestPage extends StatelessWidget {
     return Hero(
       tag: 'dinner',
       createRectTween: _createRectTween,
-      child: const Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
+      child: Scaffold(
+        backgroundColor: KidTheme.of(context).backgorundColor,
+        body: const Center(
           child: Text(
             "Тут скоро появится крутое расписание!",
             textAlign: TextAlign.center,

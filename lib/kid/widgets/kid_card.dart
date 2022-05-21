@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -58,14 +59,14 @@ class KidCard extends HookWidget {
               child: Container(
                 padding: edgeInsets ?? const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: KidTheme.of(context).cardColor,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(20),
                   ),
                   boxShadow: [
                     BoxShadow(
                       color: kidCardTransformer?.shadowColor ??
-                          const Color(0xff4D5DFA).withOpacity(0.2),
+                          KidTheme.of(context).buttonTextColor.withOpacity(0.2),
                       spreadRadius: 1,
                       blurRadius: 5,
                       offset: kidCardTransformer?.shadowOffset == null
@@ -99,10 +100,10 @@ class KidCard extends HookWidget {
                             child: Text(
                               title,
                               textAlign: TextAlign.left,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 21,
-                                color: Color(0xff03314B),
+                                color: KidTheme.of(context).cardTextColor,
                               ),
                             ),
                           ),
@@ -115,10 +116,10 @@ class KidCard extends HookWidget {
                         padding: const EdgeInsets.only(bottom: 9),
                         child: Text(
                           subtitle!,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xff03314B),
+                            color: KidTheme.of(context).cardTextColor,
                           ),
                         ),
                       ),
