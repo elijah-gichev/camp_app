@@ -101,9 +101,11 @@ class _OperationViewState extends State<OperationView> with SingleTickerProvider
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: AppFonts.medium.copyWith(fontSize: 14),
+                        SizedBox(
+                          child: Text(
+                            title + ' (' + widget.operation.buyer.name.split(' ')[1] + ')',
+                            style: AppFonts.medium.copyWith(fontSize: 14),
+                          ),
                         ),
                         SizedBox(
                           height: 4.h,

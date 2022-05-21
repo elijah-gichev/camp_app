@@ -3,7 +3,6 @@ import 'package:camp_app/cart/models/category.dart';
 import 'package:camp_app/cart/services/categories/all_category_repository.dart';
 import 'package:camp_app/cart/services/category_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'category_card.dart';
