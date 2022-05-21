@@ -33,76 +33,73 @@ class KidCard extends HookWidget {
     useAnimation(scaleController);
 
     final bottomPaddingTitle = (action != null) ? 11 : 0;
-    return Hero(
-      tag: 'dinner',
-      child: IntrinsicWidth(
-        child: Transform.scale(
-          scale: scaleController.value,
-          child: Transform.rotate(
-            angle: kidCardTransformer?.angle ?? 0,
-            child: GestureDetector(
-              onTapDown: (_) {
-                buttonPressedState = scaleController.reverse();
-              },
-              onTapUp: (_) async {
-                await buttonPressedState;
-                buttonPressedState = scaleController.forward();
-              },
-              onTap: onTap,
-              child: Center(
-                child: Container(
-                  padding: edgeInsets ?? const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xff4D5DFA).withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                      ),
-                    ],
+    return IntrinsicWidth(
+      child: Transform.scale(
+        scale: scaleController.value,
+        child: Transform.rotate(
+          angle: kidCardTransformer?.angle ?? 0,
+          child: GestureDetector(
+            onTapDown: (_) {
+              buttonPressedState = scaleController.reverse();
+            },
+            onTapUp: (_) async {
+              await buttonPressedState;
+              buttonPressedState = scaleController.forward();
+            },
+            onTap: onTap,
+            child: Center(
+              child: Container(
+                padding: edgeInsets ?? const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (status != null)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
-                          child: status,
-                        ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff4D5DFA).withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (status != null)
                       Padding(
-                        padding: EdgeInsets.only(
-                          bottom: bottomPaddingTitle.toDouble(),
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: status,
+                      ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        bottom: bottomPaddingTitle.toDouble(),
+                      ),
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 21,
+                          color: Color(0xff03314B),
                         ),
+                      ),
+                    ),
+                    if (subtitle != null)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 9),
                         child: Text(
-                          title,
-                          textAlign: TextAlign.center,
+                          subtitle!,
                           style: const TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 21,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
                             color: Color(0xff03314B),
                           ),
                         ),
                       ),
-                      if (subtitle != null)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 9),
-                          child: Text(
-                            subtitle!,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff03314B),
-                            ),
-                          ),
-                        ),
-                      if (action != null) action!,
-                    ],
-                  ),
+                    if (action != null) action!,
+                  ],
                 ),
               ),
             ),
