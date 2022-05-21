@@ -1,3 +1,4 @@
+import 'package:camp_app/core/models/account.dart';
 import 'package:camp_app/core/models/operation.dart';
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:dio/dio.dart';
@@ -9,24 +10,18 @@ class OperationService {
     this.dioService,
   );
 
-  Future<List<Operation>> getUserOperations({
+  Future<Account> getUserAccount({
     required int userId,
   }) async {
     try {
-      final operationsRaw = await dioService.client.post(
+      final response = await dioService.client.post(
         '/operations',
         data: {
           'user_id': userId,
         },
       );
 
-      final operations = List<Operation>.from(
-        operationsRaw.data.map(
-          (content) => Operation.fromJson(content),
-        ),
-      );
-
-      return operations;
+      return Account.fromJson(response.data);
     } on DioError catch (e) {
       throw Exception('Что-то пошло не так!');
     }

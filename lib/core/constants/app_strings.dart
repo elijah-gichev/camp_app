@@ -10,4 +10,7 @@ class AppStrings {
 
   static const refill = "Пополнение";
   static const parent = "Родитель";
+  static const account = "Счёт";
+
+  static const expensesOnShift = "Траты за смену";
 }
