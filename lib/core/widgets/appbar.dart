@@ -2,14 +2,20 @@ import 'package:camp_app/core/constants/app_colors.dart';
 import 'package:camp_app/core/constants/app_dimens.dart';
 import 'package:camp_app/core/constants/app_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CampAppBar extends StatelessWidget {
   final String text;
 
   final VoidCallback? onBackPressed;
+  final Widget? trailing;
 
-  const CampAppBar({Key? key, required this.text, this.onBackPressed})
-      : super(key: key);
+  const CampAppBar({
+    Key? key,
+    this.trailing,
+    required this.text,
+    this.onBackPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +30,7 @@ class CampAppBar extends StatelessWidget {
           borderRadius: AppDimens.cardRadius,
         ),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-              16, 20.0 + AppDimens.statusBarHeight, 16, 20),
+          padding: EdgeInsets.fromLTRB(20.w, 20.0 + AppDimens.statusBarHeight, 20.w, 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -39,6 +44,7 @@ class CampAppBar extends StatelessWidget {
                 text,
                 style: AppFonts.semibold.copyWith(fontSize: 24),
               ),
+              if (trailing != null) trailing!,
             ],
           ),
         ),

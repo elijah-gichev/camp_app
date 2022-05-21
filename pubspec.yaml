@@ -58,6 +58,10 @@ dependencies:
 
   equatable: ^2.0.3
 
+  flutter_svg: ^1.0.3
+
+  provider: ^6.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -74,6 +78,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
+  assets:
+      - assets/icons/
+      - assets/images/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
