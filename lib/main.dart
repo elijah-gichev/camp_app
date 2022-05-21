@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:camp_app/auth/service/auth_service.dart';
 import 'package:camp_app/core/router.dart';
 import 'package:camp_app/core/services/local_user_service.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
@@ -65,6 +66,9 @@ class App extends StatelessWidget {
     return ScreenUtilInit(
       child: MaterialApp(
         title: 'Camp app',
+        supportedLocales: [
+          Locale('ru', ''),
+        ],
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -81,6 +85,8 @@ class App extends StatelessWidget {
 class DebugHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

@@ -48,9 +48,10 @@ dependencies:
   hydrated_bloc: ^8.1.0
   path_provider: ^2.0.8
   flutter_spinkit: ^5.1.0
-
+  flutter_localization:
   shared_preferences: ^2.0.15
   matrix4_transform: ^2.0.1
+  syncfusion_flutter_calendar: ^19.1.54
 
   qr_code_scanner: ^0.7.0
 
