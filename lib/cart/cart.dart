@@ -1,10 +1,8 @@
 import 'package:camp_app/cart/cart_bloc/cart_bloc.dart';
 import 'package:camp_app/cart/controllers/selector_controller.dart';
-import 'package:camp_app/cart/widgets.dart/dish_selector.dart';
-import 'package:camp_app/cart/widgets.dart/list_of_dishes.dart';
-import 'package:camp_app/cart/widgets.dart/navbar.dart';
-import 'package:camp_app/cart/widgets.dart/search_input.dart';
-import 'package:camp_app/cart/widgets.dart/title_block.dart';
+import 'package:camp_app/cart/widgets.dart/category_selector.dart';
+import 'package:camp_app/cart/widgets.dart/list_of_subcategories.dart';
+
 import 'package:camp_app/core/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({Key? key}) : super(key: key);
+  final SelectorController selectorController = SelectorController();
+
+  CartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,21 +59,24 @@ class CartPage extends StatelessWidget {
                 SizedBox(
                   height: 30.h,
                 ),
-                Container(
-                  width: 330.w,
-                  child: SearchInput(
-                    textEditingController: TextEditingController(),
+                // Container(
+                //   width: 330.w,
+                //   child: SearchInput(
+                //     textEditingController: TextEditingController(),
+                //   ),
+                // ),
+                ChangeNotifierProvider.value(
+                  value: selectorController,
+                  child: const CategorySelector(),
+                ),
+                ChangeNotifierProvider.value(
+                  value: selectorController,
+                  child: const Expanded(
+                    child: SingleChildScrollView(
+                      child: ListOfSubCategories(),
+                    ),
                   ),
                 ),
-                ChangeNotifierProvider(
-                  create: (context) => SelectorController(),
-                  child: const DishSelector(),
-                ),
-                const Expanded(
-                  child: SingleChildScrollView(
-                    child: ListOfDishes(),
-                  ),
-                )
               ],
             ),
           ),

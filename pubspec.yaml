@@ -48,12 +48,13 @@ dependencies:
   firebase_database: ^9.0.14
 
   laravel_flutter_pusher: ^0.0.4
-
   equatable: ^2.0.3
-
   flutter_svg: ^1.0.3
-
   provider: ^6.0.2
+
+  shimmer: ^2.0.0
+
+
 
 dev_dependencies:
   flutter_test:

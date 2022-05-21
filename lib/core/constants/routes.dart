@@ -5,4 +5,6 @@ abstract class Routes {
   static const String mainPage = '/main_page';
 
   static const String qrScanner = '/qr_scanner';
+
+  static const String shift = '/shift';
 }

@@ -1,9 +1,10 @@
 import 'package:camp_app/cart/models/category.dart';
 import 'package:camp_app/cart/models/service.dart';
 import 'package:camp_app/cart/models/subcategory.dart';
+import 'package:flutter/material.dart';
 
 class LanguagesCategoryRepository {
-  static const sportsCategory = Category(title: 'Спорт', subcategories: [
+  static const languagesCategory = Category(title: 'Иностранные языки', iconData: Icons.language, subcategories: [
     _subcategory1,
     _subcategory2,
     _subcategory3,

@@ -1,11 +1,11 @@
-import 'package:camp_app/cart/widgets.dart/dish_selector.dart';
+import 'package:camp_app/cart/widgets.dart/category_selector.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class DishItem extends StatefulWidget {
-  const DishItem({
+class CategoryItemWidget extends StatefulWidget {
+  const CategoryItemWidget({
     Key? key,
     required this.index,
     required this.category,
@@ -13,16 +13,16 @@ class DishItem extends StatefulWidget {
     required this.isSelected,
   }) : super(key: key);
 
-  final DishCategory category;
+  final CategoryItem category;
   final bool isSelected;
   final void Function(int) onSelected;
   final int index;
 
   @override
-  State<StatefulWidget> createState() => _DishItemState();
+  State<StatefulWidget> createState() => _CategoryItemWidgetState();
 }
 
-class _DishItemState extends State<DishItem> {
+class _CategoryItemWidgetState extends State<CategoryItemWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -42,15 +42,19 @@ class _DishItemState extends State<DishItem> {
                 height: 70.r,
                 width: 70.r,
                 decoration: BoxDecoration(
-                  color: widget.isSelected ? const Color(0xff98D2F5) : const Color(0xffF2F3F4),
+                  color: widget.isSelected ? const Color(0xff98D2F5) : Colors.grey[300],
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
-                  child: SvgPicture.asset(
-                    widget.category.iconPath,
+                  child: Icon(
+                    widget.category.iconData,
                     color: widget.isSelected ? Colors.white : Colors.black,
                   ),
+                  // child: SvgPicture.asset(
+                  //   widget.category.iconPath,
+                  //   color: widget.isSelected ? Colors.white : Colors.black,
+                  // ),
                 ),
               ),
             ),

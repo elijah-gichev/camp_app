@@ -6,19 +6,17 @@ class CategoryCard extends StatelessWidget {
   final String reaction;
   final bool isRecommended;
 
-  final Function() pressUp; // Плюсик
-  final Function() pressDown; //Минусик
-
   final String imagePath;
+
+  final VoidCallback onTap;
 
   const CategoryCard({
     Key? key,
     required this.name,
     required this.reaction,
     required this.isRecommended,
-    required this.pressUp,
-    required this.pressDown,
     required this.imagePath,
+    required this.onTap,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -52,10 +50,10 @@ class CategoryCard extends StatelessWidget {
                         // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           SizedBox(
-                            width: 64.w,
+                            width: 20.w,
                           ),
                           Container(
-                            width: 173.w,
+                            width: 220.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -102,28 +100,31 @@ class CategoryCard extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              left: 0,
-              child: CircleAvatar(
-                backgroundColor: Theme.of(context).primaryColor,
-                radius: 38.r,
-                backgroundImage: AssetImage(imagePath),
-              ),
-            ),
+            // Positioned(
+            //   left: 0,
+            //   child: CircleAvatar(
+            //     backgroundColor: Theme.of(context).primaryColor,
+            //     radius: 38.r,
+            //     backgroundImage: AssetImage(imagePath),
+            //   ),
+            // ),
             Positioned(
               right: 0,
               bottom: 0,
-              child: Container(
-                width: 65.w,
-                height: 45.h,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16.0),
-                    bottomRight: Radius.circular(16.0),
+              child: GestureDetector(
+                child: Container(
+                  width: 65.w,
+                  height: 45.h,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16.0),
+                      bottomRight: Radius.circular(16.0),
+                    ),
+                    color: Color(0xffFFEE94),
                   ),
-                  color: Color(0xffFFEE94),
+                  child: const Icon(Icons.arrow_forward_ios_outlined),
                 ),
-                child: const Icon(Icons.arrow_forward_ios_outlined),
+                onTap: onTap,
               ),
             ),
           ],
