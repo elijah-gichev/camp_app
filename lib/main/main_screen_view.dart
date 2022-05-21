@@ -20,7 +20,7 @@ class MainScreenView extends StatelessWidget {
         // return ProfileScreen();
         return BlocProvider(
           create: (context) => CartBloc(),
-          child: const CartPage(),
+          child: CartPage(),
         );
     }
     return Container();
