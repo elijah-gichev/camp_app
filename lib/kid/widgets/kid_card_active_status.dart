@@ -12,7 +12,7 @@ class KidCardActiveStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       activeStatus == ActiveStatus.active ? "Сейчас идет" : "Воспоминания",
-      style: TextStyle(
+      style: const TextStyle(
         color: Color(0xffE6492D),
         fontSize: 15,
         fontWeight: FontWeight.w600,
