@@ -1,7 +1,13 @@
 import 'package:camp_app/core/constants/app_fonts.dart';
 import 'package:camp_app/core/constants/app_strings.dart';
+import 'package:camp_app/core/services/dio_service.dart';
+import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/core/utils/format.dart';
-import 'package:camp_app/core/widgets/two_rows_toolbar.dart';
+import 'package:camp_app/core/widgets/appbar.dart';
+import 'package:camp_app/main.dart';
+import 'package:camp_app/money/bloc/day_expenses.dart';
+import 'package:camp_app/money/services/operation_service.dart';
+import 'package:camp_app/money/widgets/caption.dart';
 import 'package:camp_app/money/widgets/day_of_operations_item.dart';
 import 'package:camp_app/core/widgets/loading.dart';
 import 'package:camp_app/money/bloc/day_entry.dart';
@@ -9,11 +15,13 @@ import 'package:camp_app/money/bloc/money_bloc.dart';
 import 'package:camp_app/money/bloc/money_event.dart';
 import 'package:camp_app/money/bloc/money_state.dart';
 import 'package:camp_app/core/constants/routes.dart';
+import 'package:camp_app/money/widgets/expenses_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoneyScreen extends StatefulWidget {
-  const MoneyScreen({Key? key}) : super(key: key);
+  final int childId;
+  const MoneyScreen({Key? key, required this.childId}) : super(key: key);
 
   @override
   State<MoneyScreen> createState() => _MoneyScreenState();
@@ -23,7 +31,10 @@ class _MoneyScreenState extends State<MoneyScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MoneyBloc()..add(MoneyDataLoadRequested()),
+      create: (context) => MoneyBloc(
+        operationService: OperationService(getIt<DioService>()),
+        childId: widget.childId
+      )..add(MoneyDataLoadRequested()),
       child: BlocConsumer<MoneyBloc, MoneyState>(
         listener: (context, state) {
           if (state is MoneyNavToPay) {
@@ -34,7 +45,12 @@ class _MoneyScreenState extends State<MoneyScreen> {
           return Scaffold(
             body: Column(
               children: [
-                TwoRowsToolbar(balance: _getBalance(state)),
+                CampAppBar(
+                  text: _getTitle(state),
+                  onBackPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 const Expanded(child: MoneyBody()),
               ],
             ),
@@ -55,11 +71,11 @@ class _MoneyScreenState extends State<MoneyScreen> {
         (value) => context.read<MoneyBloc>().add(MoneyDataLoadRequested()));
   }
 
-  double _getBalance(MoneyState state) {
+  String _getTitle(MoneyState state) {
     if (state is MoneyLoadSuccess) {
-      return state.balance;
+      return "${state.user.name.split(" ")[1]}(${state.user.cash.formatMoney()})";
     }
-    return .0;
+    return "";
   }
 }
 
@@ -78,7 +94,10 @@ class MoneyBody extends StatelessWidget {
           if (state is MoneyLoadInProgress) {
             return loading();
           } else if (state is MoneyLoadSuccess) {
-            return MoneyContent(dayEntries: state.dayEntries);
+            return MoneyContent(
+              expenses: state.expenses,
+              dayEntries: state.dayEntries,
+            );
           }
           return Container();
         },
@@ -88,21 +107,35 @@ class MoneyBody extends StatelessWidget {
 }
 
 class MoneyContent extends StatelessWidget {
+  final List<DayExpenses> expenses;
   final List<DayEntry> dayEntries;
 
   const MoneyContent({
     Key? key,
+    required this.expenses,
     required this.dayEntries,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 86),
-      itemCount: dayEntries.length,
-      itemBuilder: (context, index) => DayOfOperationsItem(
-        dayEntry: dayEntries[index],
-      ),
+      padding: const EdgeInsets.fromLTRB(0, 8, 16, 86),
+      itemCount: dayEntries.length + 1,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return Column(children: [
+            Row(children: [caption(AppStrings.expensesOnShift)]),
+            ExpensesChart(expenses: expenses),
+          ]);
+        } else {
+          return Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: DayOfOperationsItem(
+              dayEntry: dayEntries[index - 1],
+            ),
+          );
+        }
+      },
     );
   }
 }

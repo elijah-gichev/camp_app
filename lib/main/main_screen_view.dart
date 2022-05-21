@@ -1,5 +1,8 @@
-import 'package:camp_app/money/money_screen.dart';
+import 'package:camp_app/cart/cart.dart';
+import 'package:camp_app/cart/cart_bloc/cart_bloc.dart';
+import 'package:camp_app/money/accounts_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainScreenView extends StatelessWidget {
   final int page;
@@ -10,11 +13,15 @@ class MainScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (page) {
       case 0:
-        return const MoneyScreen();
+        return const AccountsScreen();
       case 1:
-        // return ShiftsScreen();
+      // return ShiftsScreen();
       case 2:
         // return ProfileScreen();
+        return BlocProvider(
+          create: (context) => CartBloc(),
+          child: const CartPage(),
+        );
     }
     return Container();
   }

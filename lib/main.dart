@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camp_app/auth/service/auth_service.dart';
 import 'package:camp_app/core/router.dart';
+import 'package:camp_app/core/services/laravel_pusher_service.dart';
 import 'package:camp_app/core/services/local_user_service.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -15,6 +16,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'kid/main/ui/kid_main_page.dart';
 
@@ -35,6 +37,7 @@ void main() async {
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   if (!kReleaseMode) {
     HttpOverrides.global = DebugHttpOverrides();
   }

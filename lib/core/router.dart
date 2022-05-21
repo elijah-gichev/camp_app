@@ -4,6 +4,7 @@ import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/kid/adventure/adventure_page.dart';
 import 'package:camp_app/kid/calendar/calendar_page.dart';
 import 'package:camp_app/kid/main/ui/kid_main_page.dart';
+import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/main.dart';
 import 'package:camp_app/main/main_screen.dart';
 import 'package:camp_app/money/money_screen.dart';
@@ -50,9 +51,12 @@ class AppRouter {
       case Routes.qrScanner:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => PaymentBloc(PaymentService(
-              getIt<DioService>(),
-            )),
+            create: (context) => PaymentBloc(
+              PaymentService(
+                getIt<DioService>(),
+              ),
+              getIt<UserService>(),
+            ),
             child: const QRScanner(),
           ),
         );

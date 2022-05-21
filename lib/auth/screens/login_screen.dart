@@ -5,6 +5,7 @@ import 'package:camp_app/auth/widgets/login_input.dart';
 import 'package:camp_app/auth/widgets/login_title.dart';
 import 'package:camp_app/core/constants/routes.dart';
 import 'package:camp_app/core/services/dio_service.dart';
+import 'package:camp_app/core/services/local_user_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/core/widgets/show_snackbar.dart';
 import 'package:camp_app/main.dart';
@@ -30,7 +31,8 @@ class LoginScreen extends StatelessWidget {
               authService: getIt<AuthService>(),
               userService: getIt<UserService>(),
               dioService: getIt<DioService>(),
-            ),
+              localUserService: getIt<LocalUserService>(),
+            )..add(AuthCheckIsLogged()),
             child: LoginScreentView(
               phoneNumberController: _phoneNumberController,
             ),
@@ -65,7 +67,7 @@ class LoginScreentView extends StatelessWidget {
               showSnackBar(context: context, message: state.msg);
             }
 
-            if (state is AuthLoadingDone) {
+            if (state is AuthLoadingDone || state is AuthAlreadyLogged) {
               Navigator.pushReplacementNamed(context, Routes.mainPage);
             }
           },

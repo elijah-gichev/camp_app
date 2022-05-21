@@ -36,13 +36,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-
   flutter_bloc: ^8.0.1
   flutter_screenutil: ^5.5.3+1
-
   intl: ^0.17.0
   dio: ^4.0.6
-
   get_it: ^7.2.0
   flutter_login: ^3.2.0
   hydrated_bloc: ^8.1.0
@@ -53,6 +50,18 @@ dependencies:
   syncfusion_flutter_calendar: ^19.1.54
 
   qr_code_scanner: ^0.7.0
+  another_flushbar: ^1.10.27
+  syncfusion_flutter_charts: ^19.4.53
+  firebase_core: ^1.17.0
+  firebase_database: ^9.0.14
+
+  laravel_flutter_pusher: ^0.0.4
+
+  equatable: ^2.0.3
+
+  flutter_svg: ^1.0.3
+
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
@@ -71,14 +80,17 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
+  assets:
+      - assets/icons/
+      - assets/images/
+      - assets/ruble.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/ruble.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

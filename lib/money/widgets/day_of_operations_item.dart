@@ -5,10 +5,11 @@ import 'package:camp_app/money/widgets/operation_view.dart';
 import 'package:flutter/material.dart';
 
 class DayOfOperationsItem extends StatelessWidget {
-  const DayOfOperationsItem({Key? key, required this.dayEntry})
-      : super(key: key);
+  DayOfOperationsItem({Key? key, required this.dayEntry}) : super(key: key);
 
   final DayEntry dayEntry;
+
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
   @override
   Widget build(BuildContext context) {

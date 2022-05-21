@@ -11,20 +11,15 @@ class PaymentService {
     this.dioService,
   );
 
-  Future<bool> pay({
+  Future<void> pay({
     required int sellerId,
     required double sum,
   }) async {
     try {
-      var res = await dioService.client.post(
+      await dioService.client.post(
         '/product/buy',
-        data: {
-          'seller_id': sellerId,
-          'sum': sum,
-        },
+        data: {'seller_id': sellerId, 'sum': sum},
       );
-
-      return true;
     } on DioError catch (e) {
       if (e.response!.statusCode == 403) {
         throw NotEnoughtMoney('Недостаточно денег!');
