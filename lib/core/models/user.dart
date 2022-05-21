@@ -20,6 +20,10 @@ class User {
     required this.cash,
   });
 
+  factory User.fake() {
+    return User(id: 1, name: "name", email: "email", phone: "phone", role: Role.child, cash: 123);
+  }
+
   User copyWith({
     int? id,
     String? name,

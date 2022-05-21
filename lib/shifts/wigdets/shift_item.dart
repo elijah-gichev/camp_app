@@ -1,12 +1,20 @@
 import 'package:camp_app/core/constants/routes.dart';
 import 'package:camp_app/core/models/operation.dart';
+import 'package:camp_app/core/models/shop.dart';
+import 'package:camp_app/core/models/user.dart';
+import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/core/widgets/button.dart';
 import 'package:camp_app/main.dart';
+import 'package:camp_app/money/services/operation_service.dart';
+import 'package:camp_app/shifts/cubit/data_loading_cubit.dart';
+import 'package:camp_app/shifts/models/activity.dart';
 import 'package:camp_app/shifts/models/shift.dart';
+import 'package:camp_app/shifts/screens/shift_screen.dart';
 import 'package:camp_app/shifts/wigdets/child_activity.dart';
 import 'package:camp_app/shifts/wigdets/operation_view_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -14,22 +22,30 @@ class ShiftItem extends StatelessWidget {
   final Shift shift;
   ShiftItem(this.shift, {Key? key}) : super(key: key);
 
-  final items = <Widget>[
-    OperationViewWrapper(
-      operation: Operation.sample(
-        getIt<UserService>().user!,
-      ),
+  final itemsModelsOperations = <Operation>[
+    Operation.sample(
+      getIt<UserService>().user!,
     ),
-    const ChildActivity(
+    Operation.sample(
+      getIt<UserService>().user!,
+    ),
+    Operation(
+      1,
+      1,
+      DateTime(2022, 5, 21),
+      User.fake(),
+      Shop("title", "category"),
+      isActivity: true,
       activityName: 'Квадроцикл',
-      userName: 'Андрей',
+      userName: 'Катя',
     ),
-    OperationViewWrapper(
-      operation: Operation.sample(
-        getIt<UserService>().user!,
-      ),
-    ),
-    const ChildActivity(
+    Operation(
+      2,
+      2,
+      DateTime(2022, 5, 21),
+      User.fake(),
+      Shop("title", "category"),
+      isActivity: true,
       activityName: 'Бассейн',
       userName: 'Катя',
     ),
@@ -37,6 +53,27 @@ class ShiftItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final items = <Widget>[
+      OperationViewWrapper(
+        operation: itemsModelsOperations[0],
+      ),
+      // ChildActivity(
+      //   activityName: itemsModelsActivities[0].activityName,
+      //   userName: itemsModelsActivities[0].userName,
+      // ),
+      OperationViewWrapper(operation: itemsModelsOperations[1]),
+      // ChildActivity(
+      //   activityName: itemsModelsActivities[1].activityName,
+      //   userName: itemsModelsActivities[1].userName,
+      // ),
+      OperationViewWrapper(
+        operation: itemsModelsOperations[2],
+      ),
+      OperationViewWrapper(
+        operation: itemsModelsOperations[3],
+      ),
+    ];
+
     items.shuffle();
 
     return Container(
@@ -103,10 +140,21 @@ class ShiftItem extends StatelessWidget {
                 child: Button(
                   text: 'Смотреть всю активность',
                   onPressed: () {
-                    Navigator.pushNamed(
+                    Navigator.push(
                       context,
-                      Routes.shift,
-                      arguments: shift,
+                      MaterialPageRoute(
+                        builder: (_) => BlocProvider(
+                          create: (context) => OperationLoadingCubit(
+                            OperationService(
+                              getIt<DioService>(),
+                            ),
+                          ),
+                          child: ShiftScreen(
+                            shift,
+                            itemsModelsOperations,
+                          ),
+                        ),
+                      ),
                     );
                   },
                   bgColor: const Color(0xffEDEFFF),

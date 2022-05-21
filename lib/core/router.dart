@@ -50,14 +50,14 @@ class AppRouter {
           ),
         );
 
-      case Routes.shift:
-        final Shift? shift = routeSettings.arguments != null ? routeSettings.arguments as Shift : null;
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => OperationLoadingCubit(OperationService(getIt<DioService>())),
-            child: ShiftScreen(shift!),
-          ),
-        );
+      // case Routes.shift:
+      //   final Shift? shift = routeSettings.arguments != null ? routeSettings.arguments as Shift : null;
+      //   return MaterialPageRoute(
+      //     builder: (_) => BlocProvider(
+      //       create: (context) => OperationLoadingCubit(OperationService(getIt<DioService>())),
+      //       child: ShiftScreen(shift!),
+      //     ),
+      //   );
       default:
         return null;
     }

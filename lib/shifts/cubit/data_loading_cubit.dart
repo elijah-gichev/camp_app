@@ -11,13 +11,13 @@ class OperationLoadingCubit extends Cubit<OperationLoadingState> {
   final OperationService operationService;
   OperationLoadingCubit(this.operationService) : super(DataLoadingInitial());
 
-  void loadData(int parentId) async {
+  void loadData(int parentId, List<Operation> additionalOperations) async {
     try {
       emit(DataLoadingInProgress());
 
       final opers = await operationService.getParentChildrenOperations(parentId: parentId);
 
-      final entries = convertToDayEntries(opers);
+      final entries = convertToDayEntries([...opers, ...additionalOperations]);
 
       emit(DataLoadingDone(entries));
     } catch (e) {

@@ -11,6 +11,7 @@ import 'package:camp_app/main.dart';
 import 'package:camp_app/money/bloc/day_entry.dart';
 import 'package:camp_app/money/services/operation_service.dart';
 import 'package:camp_app/shifts/cubit/data_loading_cubit.dart';
+import 'package:camp_app/shifts/models/activity.dart';
 
 import 'package:camp_app/shifts/models/shift.dart';
 import 'package:camp_app/shifts/wigdets/child_activity.dart';
@@ -21,7 +22,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShiftScreen extends StatefulWidget {
   final Shift shift;
-  const ShiftScreen(this.shift, {Key? key}) : super(key: key);
+  final List<Operation> operations;
+  const ShiftScreen(this.shift, this.operations, {Key? key}) : super(key: key);
 
   @override
   State<ShiftScreen> createState() => _ShiftScreenState();
@@ -31,7 +33,7 @@ class _ShiftScreenState extends State<ShiftScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<OperationLoadingCubit>().loadData(getIt<UserService>().user!.id);
+    context.read<OperationLoadingCubit>().loadData(getIt<UserService>().user!.id, widget.operations);
   }
 
   @override
@@ -142,7 +144,7 @@ class DayShiftItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350.h,
+      height: (entry.operations.length * 110).h,
       width: 0.95.sw,
       child: Card(
         margin: const EdgeInsets.only(top: 4, bottom: 4),
@@ -168,9 +170,16 @@ class DayShiftItem extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.separated(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: entry.operations.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: entry.operations.length + (entry.activities?.length ?? 0),
                   itemBuilder: (context, index) {
+                    if (index > (entry.operations.length - 1)) {
+                      return ChildActivity(
+                        activityName: entry.activities![index - entry.operations.length].activityName,
+                        userName: entry.activities![index - entry.operations.length].userName,
+                      );
+                    }
+
                     return OperationViewWrapper(
                       operation: entry.operations[index],
                     );

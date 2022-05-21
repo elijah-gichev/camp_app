@@ -17,19 +17,26 @@ class Operation {
 
   bool showAppearAnim = false;
 
+  final String? activityName;
+  final String? userName;
+  final bool? isActivity;
+
   Operation(
     this.id,
     this.sum,
     this.created_at,
     this.buyer,
-    this.shop,
-  );
+    this.shop, {
+    this.isActivity,
+    this.activityName,
+    this.userName,
+  });
 
   factory Operation.sample(User user) {
     return Operation(
       1,
-      150,
-      DateTime.now(),
+      -150,
+      DateTime(2022, 5, 21),
       user,
       Shop('Магазин', 'Покупки'),
     );

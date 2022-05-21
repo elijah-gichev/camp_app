@@ -17,7 +17,7 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      scrollController.animateTo(200, duration: const Duration(seconds: 1), curve: Curves.easeInOutCubic);
+      scrollController.animateTo(300, duration: const Duration(seconds: 1), curve: Curves.easeInOutCubic);
     });
     super.initState();
   }
