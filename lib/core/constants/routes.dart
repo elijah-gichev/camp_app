@@ -15,4 +15,6 @@ abstract class Routes {
   static const String shift = '/shift';
 
   static const String achivments = '/achivments';
+
+  static const String kidCart = '/kid_cart';
 }

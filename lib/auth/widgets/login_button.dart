@@ -1,3 +1,4 @@
+import 'package:camp_app/core/widgets/button.dart';
 import 'package:camp_app/core/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,26 +8,26 @@ class LoginButton extends StatelessWidget {
 
   final bool isLoading;
 
+  final String text;
+
   const LoginButton({
     Key? key,
     required this.onPressed,
     required this.isLoading,
+    required this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MainButton(
-      linearGradient: const LinearGradient(
-        colors: [
-          Colors.black,
-          Colors.tealAccent,
-        ],
+    return Container(
+      width: 0.95.sw,
+      height: 45.h,
+      child: Button(
+        text: text,
+        onPressed: !isLoading ? onPressed! : () {},
+        bgColor: const Color(0xffEDEFFF),
+        textColor: const Color(0xff4D5DFA),
       ),
-      minimumSize: Size(double.infinity, 65.h),
-      text: 'Login',
-      fontSize: 20.sp,
-      onPressed: !isLoading ? onPressed : () {},
-      isLoading: isLoading,
     );
   }
 }

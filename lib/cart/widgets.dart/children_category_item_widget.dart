@@ -1,12 +1,11 @@
 import 'package:camp_app/cart/widgets.dart/category_selector.dart';
-import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CategoryItemWidget extends StatefulWidget {
-  const CategoryItemWidget({
+class ChildrenCategoryItemWidget extends StatefulWidget {
+  const ChildrenCategoryItemWidget({
     Key? key,
     required this.index,
     required this.category,
@@ -20,10 +19,10 @@ class CategoryItemWidget extends StatefulWidget {
   final int index;
 
   @override
-  State<StatefulWidget> createState() => _CategoryItemWidgetState();
+  State<ChildrenCategoryItemWidget> createState() => _ChildrenCategoryItemWidgetState();
 }
 
-class _CategoryItemWidgetState extends State<CategoryItemWidget> {
+class _ChildrenCategoryItemWidgetState extends State<ChildrenCategoryItemWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -43,14 +42,14 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                 height: 70.r,
                 width: 70.r,
                 decoration: BoxDecoration(
-                  color: widget.isSelected ? KidTheme.of(context).activeSelectorColor : KidTheme.of(context).notActiveSelectorColor,
+                  color: widget.isSelected ? const Color(0xff98D2F5) : Colors.grey[300],
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Icon(
                     widget.category.iconData,
-                    color: widget.isSelected ? Colors.white : Colors.black, //KidTheme.of(context)
+                    color: widget.isSelected ? Colors.white : Colors.black,
                   ),
                   // child: SvgPicture.asset(
                   //   widget.category.iconPath,
@@ -64,11 +63,12 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                 constraints: const BoxConstraints.tightFor(width: 72, height: 40),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(widget.category.title,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: KidTheme.of(context).activeSubtitleColor,
-                      )),
+                  child: Text(
+                    widget.category.title,
+                    textAlign: TextAlign.center,
+                    // style: FinFont.medium
+                    //     .copyWith(fontSize: 11, color: FinColor.secondaryText),
+                  ),
                 ),
               ),
           ],
