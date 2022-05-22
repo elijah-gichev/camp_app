@@ -54,6 +54,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.4.53
   firebase_core: ^1.17.0
   firebase_database: ^9.0.14
+  firebase_messaging: ^11.4.0
 
   laravel_flutter_pusher: ^0.0.4
   confetti: ^0.6.0
@@ -66,7 +67,7 @@ dependencies:
   shake: ^2.1.0
   geolocator: ^8.2.1
   flutter_portal: ^1.1.0
-
+  flutter_local_notifications: ^9.5.3
 
 
 dev_dependencies:
