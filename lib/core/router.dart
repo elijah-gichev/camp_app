@@ -1,4 +1,5 @@
 import 'package:camp_app/auth/screens/login_screen.dart';
+import 'package:camp_app/cart/child_cart.dart';
 import 'package:camp_app/core/constants/routes.dart';
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/kid/calendar/calendar_page.dart';
@@ -50,9 +51,9 @@ class AppRouter {
           transitionDuration: Duration(milliseconds: 500),
           pageBuilder: (_, __, ___) => RatingPage(),
         );
-      case '/':
+      // case '/':
 
-        // case Routes.kidMain:
+      case Routes.kidMain:
         return MaterialPageRoute(
           builder: (context) => const KidMainPage(),
         );
@@ -64,12 +65,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const SplashScreen(),
         );
-      // return MaterialPageRoute(
-      //   builder: (_) => const MoneyScreen(),
-      // );
-      // return MaterialPageRoute(
-      //   builder: (_) => const MainScreen(),
-      // );
+
       case Routes.auth:
         return MaterialPageRoute(
           builder: (_) => LoginScreen(),
@@ -85,6 +81,11 @@ class AppRouter {
             ),
             child: const QRScanner(),
           ),
+        );
+
+      case Routes.kidCart:
+        return MaterialPageRoute(
+          builder: (_) => ChildCartPage(),
         );
 
       // case Routes.shift:

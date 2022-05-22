@@ -4,6 +4,7 @@ import 'package:camp_app/core/models/user.dart';
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/local_user_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
@@ -44,7 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthCheckIsLogged>((event, emit) async {
       if (userService.hasUser) {
         print('logged');
-        emit(AuthAlreadyLogged());
+        emit(AuthAlreadyLogged(userService.user!));
       }
       print('not logged');
     });

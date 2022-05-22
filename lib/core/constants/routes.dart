@@ -17,4 +17,5 @@ abstract class Routes {
   static const String achivments = '/achivments';
 
   static const String rating = '/rating';
+  static const String kidCart = '/kid_cart';
 }

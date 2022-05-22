@@ -110,6 +110,7 @@ class LoginScreentView extends StatelessWidget {
                   BlocBuilder<AuthBloc, AuthState>(
                     builder: (context, state) {
                       return LoginButton(
+                        text: 'Login',
                         onPressed: () {
                           final phoneNumber = phoneNumberController.text;
 

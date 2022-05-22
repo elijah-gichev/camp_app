@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import 'package:camp_app/core/widgets/animated_icon.dart';
+=======
+import 'package:camp_app/core/constants/routes.dart';
+>>>>>>> 543faf76f7961faa8a73f18e61bfe978712b4128
 import 'package:flutter/material.dart';
 
 import 'kid_card.dart';
