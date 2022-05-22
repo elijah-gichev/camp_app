@@ -183,6 +183,14 @@ class KidThemeData {
   final Color buttonTextColor;
   final Color cardTextColor;
   final bool isLight;
+  final Color eventRedColor;
+  final Color eventDarkRedColor;
+  final Color eventGreenColor;
+  final Color eventDarkBlue;
+  final Color eventIconBackground;
+  final Color eventCategory;
+  final Color achivmentGreenColor;
+  final Color achivmentBlueColor;
 
   KidThemeData._(
     this.backgorundColor,
@@ -191,6 +199,14 @@ class KidThemeData {
     this.buttonTextColor,
     this.cardTextColor,
     this.isLight,
+    this.eventRedColor,
+    this.eventGreenColor,
+    this.eventDarkBlue,
+    this.eventIconBackground,
+    this.eventCategory,
+    this.eventDarkRedColor,
+    this.achivmentGreenColor,
+    this.achivmentBlueColor,
   );
 
   KidThemeData.light()
@@ -199,7 +215,15 @@ class KidThemeData {
         cardColor = Colors.white,
         buttonColor = Color(0xffEDEFFF),
         buttonTextColor = Color(0xff4D5DFA),
-        cardTextColor = Color(0xff03314B);
+        cardTextColor = Color(0xff03314B),
+        eventRedColor = Color(0xffFFECEB),
+        eventGreenColor = Color(0xffEDFFF4),
+        eventDarkBlue = Color(0xff03314B),
+        eventIconBackground = Color(0xff031A6E).withOpacity(0.1),
+        eventCategory = Color(0xff222222),
+        eventDarkRedColor = Color(0xffE6492D),
+        achivmentGreenColor = Color(0xffEDFFF4),
+        achivmentBlueColor = Color(0xff4DA7FA);
 
   KidThemeData.dark()
       : isLight = false,
@@ -207,5 +231,13 @@ class KidThemeData {
         cardColor = Color(0xff1e1e1e),
         buttonTextColor = Colors.pink,
         buttonColor = Colors.pinkAccent.withOpacity(0.2),
-        cardTextColor = Colors.white;
+        cardTextColor = Colors.white,
+        eventRedColor = Color(0xffFFECEB),
+        eventGreenColor = Color(0xffEDFFF4),
+        eventDarkBlue = Color(0xff03314B),
+        eventIconBackground = Color(0xff031A6E).withOpacity(0.1),
+        eventCategory = Color(0xff222222),
+        eventDarkRedColor = Color(0xffE6492D),
+        achivmentGreenColor = Color(0xffEDFFF4),
+        achivmentBlueColor = Color(0xff4DA7FA);
 }
