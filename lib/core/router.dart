@@ -21,6 +21,8 @@ import 'package:camp_app/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../kid/achivments/achivments_page.dart';
+
 class AppRouter {
   Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
