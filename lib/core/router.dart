@@ -46,7 +46,7 @@ class AppRouter {
         );
       case Routes.mainPage:
         return MaterialPageRoute(
-          builder: (_) => const KidMainPage(),
+          builder: (_) => const MainScreen(),
         );
       case Routes.splashScreen:
         return MaterialPageRoute(
