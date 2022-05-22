@@ -1,15 +1,14 @@
 import 'package:camp_app/auth/bloc/auth_bloc.dart';
 import 'package:camp_app/auth/service/auth_service.dart';
 import 'package:camp_app/auth/widgets/login_button.dart';
+import 'package:camp_app/core/constants/app_colors.dart';
 import 'package:camp_app/core/constants/routes.dart';
 import 'package:camp_app/core/enums/role.dart';
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/local_user_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
-import 'package:camp_app/core/widgets/button.dart';
 import 'package:camp_app/core/widgets/show_snackbar.dart';
 import 'package:camp_app/main.dart';
-import 'package:camp_app/splash/cubit/splash_cubit.dart';
 import 'package:concentric_transition/concentric_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,28 +16,58 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final pages = [
   const PageData(
-    icon: Icons.hdr_weak,
-    title: "Drag and\ndrop to move",
-    bgColor: Color(0xFFFFFFFF),
+    title: "ДЕТСКИЙ ОЗДОРОВИТЕЛЬНЫЙ САНАТОРИЙ \"ВИТА\"",
+    titleColor: AppColors.blue,
+    description:
+        "Добро пожаловать в место, где мир принадлежит детям! Вита подарит вашему ребенку яркий и развивающий отдых!",
+    imageRes: "assets/images/vita_logo.png",
+    imageBgColor: Color.fromRGBO(206, 236, 253, 1),
+    bgColor: Colors.white,
   ),
   const PageData(
-    icon: Icons.bubble_chart,
-    title: "Local news\nstories",
-    bgColor: Color(0xFF0043D0),
-    textColor: Colors.white,
+    title: "Лучший пляж на побережье",
+    titleColor: AppColors.white,
+    description:
+        "Огороженная территория с теневыми навесами, биотуалетами, медпунктами и безопасной зоной для купания",
+    descriptionColor: Colors.white,
+    imageRes: "assets/images/beach.webp",
+    imageBgColor: Colors.white,
+    bgColor: Color.fromRGBO(255, 196, 115, 1),
   ),
   const PageData(
-    icon: Icons.format_size,
-    title: "Choose your\ninterests",
-    description: " Long description Long description Long description Long description",
-    textColor: Colors.white,
-    bgColor: Color(0xFFFDBFDD),
+    title: "Видео наблюдение",
+    titleColor: AppColors.blue,
+    description:
+        "Сеть камер охватывает внутреннюю и прилегающую территорию.",
+    imageRes: "assets/images/camera.webp",
+    imageBgColor: Colors.white,
+    bgColor: Color.fromRGBO(206, 236, 253, 1),
   ),
   const PageData(
-    icon: Icons.format_size,
+    title: "Медицинский контроль",
+    titleColor: AppColors.white,
+    description:
+    "Мы знаем, как подобрать индивидуальный курс лечения каждому ребенку",
+    descriptionColor: Colors.white,
+    imageRes: "assets/images/medical_control.webp",
+    imageBgColor: Colors.white,
+    bgColor: Color.fromRGBO(255, 196, 115, 1),
+  ),
+  const PageData(
+    title: "Праздник каждый день",
+    titleColor: AppColors.blue,
+    description:
+    "Впечатления и эмоции - вот что запоминается больше всего. Воспоминаний хватит на целый год.",
+    imageRes: "assets/images/holiday.webp",
+    imageBgColor: Color.fromRGBO(206, 236, 253, 1),
+    bgColor: Colors.white,
+  ),
+  const PageData(
+    imageRes: "assets/images/vita_logo_white.png",
+    imageBgColor: Colors.transparent,
     title: "Вы можете войти в следующие аккаунты",
-    textColor: Colors.white,
-    bgColor: Color(0xFFFDBFDD),
+    titleColor: Colors.white,
+    bgColor: Color.fromRGBO(77, 93, 250, 1),
   ),
 ];
 
@@ -85,7 +114,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
         itemBuilder: (index) {
           print(index);
           //inal page = pages[index];
-          return OnboardingPageView(isLast: index == (pages.length - 1), page: pages[index]);
+          return OnboardingPageView(
+            isLast: index == (pages.length - 1),
+            page: pages[index],
+          );
         },
       ),
     );
@@ -96,7 +128,8 @@ class OnboardingPageView extends StatefulWidget {
   final PageData page;
   final bool isLast;
 
-  const OnboardingPageView({Key? key, required this.isLast, required this.page}) : super(key: key);
+  const OnboardingPageView({Key? key, required this.isLast, required this.page})
+      : super(key: key);
 
   @override
   State<OnboardingPageView> createState() => _OnboardingPageViewState();
@@ -114,21 +147,23 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
           iconSize: 170,
         ),
         SizedBox(height: 0.08.sh),
-        Text(
-          widget.page.title ?? '',
-          style: TextStyle(
-            color: widget.page.textColor,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Helvetica',
-            letterSpacing: 0.0,
-            fontSize: 18,
-            height: 1.2,
-          ).merge(
-            TextStyle(
-              fontSize: 0.046.sh,
+        Padding(
+          padding: const EdgeInsets.only(left: 36, right: 36),
+          child: Text(
+            widget.page.title,
+            style: TextStyle(
+              color: widget.page.titleColor,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.0,
+              fontSize: 18,
+              height: 1.2,
+            ).merge(
+              TextStyle(
+                fontSize: 0.026.sh,
+              ),
             ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
         SizedBox(height: 0.02.sh),
         if (widget.isLast)
@@ -149,7 +184,7 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
             style: TextStyle(
               fontSize: 0.02.sh,
               fontWeight: FontWeight.w400,
-            ),
+            ).merge(TextStyle(color: widget.page.descriptionColor)),
           ),
         ),
       ],
@@ -288,7 +323,7 @@ class LoginModule extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             if (state is AuthLoading)
-              Center(
+              const Center(
                 child: CircularProgressIndicator(
                   color: Colors.white,
                 ),
@@ -318,11 +353,10 @@ class _Text extends StatelessWidget {
     return Text(
       text ?? '',
       style: TextStyle(
-        color: page.textColor,
+        color: page.titleColor,
         fontWeight: FontWeight.w600,
-        fontFamily: 'Helvetica',
         letterSpacing: 0.0,
-        fontSize: 18,
+        fontSize: 16,
         height: 1.2,
       ).merge(style),
       textAlign: TextAlign.center,
@@ -342,22 +376,6 @@ class _Image extends StatelessWidget {
   final double size;
   final double iconSize;
 
-  Color get bgColor {
-    return page.bgColor.withGreen(page.bgColor.green + 20).withRed(page.bgColor.red - 100).withAlpha(90);
-  }
-
-  Color get icon1Color {
-    return page.bgColor.withBlue(page.bgColor.blue - 10).withGreen(220);
-  }
-
-  Color get icon2Color {
-    return page.bgColor.withGreen(66).withRed(77);
-  }
-
-  Color get icon3Color {
-    return page.bgColor.withRed(111).withGreen(220);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -365,57 +383,33 @@ class _Image extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(60.0)),
-        color: bgColor,
+        color: page.imageBgColor,
       ),
-      child: Stack(
-        clipBehavior: Clip.none,
-        fit: StackFit.expand,
-        children: [
-          Positioned.fill(
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: Icon(
-                page.icon,
-                size: iconSize + 20,
-                color: icon1Color,
-              ),
-            ),
-            right: -5,
-            bottom: -5,
-          ),
-          Positioned.fill(
-            child: RotatedBox(
-              quarterTurns: 5,
-              child: Icon(
-                page.icon,
-                size: iconSize + 20,
-                color: icon2Color,
-              ),
-            ),
-          ),
-          Icon(
-            page.icon,
-            size: iconSize,
-            color: icon3Color,
-          ),
-        ],
+      child: Image.asset(
+        page.imageRes,
+        height: iconSize,
+        width: iconSize,
       ),
     );
   }
 }
 
 class PageData {
-  final String? title;
+  final String title;
+  final Color titleColor;
   final String? description;
-  final IconData? icon;
+  final Color descriptionColor;
+  final String imageRes;
+  final Color imageBgColor;
   final Color bgColor;
-  final Color textColor;
 
   const PageData({
-    this.title,
+    required this.title,
+    this.titleColor = Colors.black,
     this.description,
-    this.icon,
+    this.descriptionColor = Colors.black,
+    required this.imageRes,
+    this.imageBgColor = Colors.white,
     this.bgColor = Colors.white,
-    this.textColor = Colors.black,
   });
 }
