@@ -1,7 +1,14 @@
 import 'dart:math';
 
+import 'package:camp_app/boom/boom_bloc.dart';
+import 'package:camp_app/boom/boom_event.dart';
+import 'package:camp_app/boom/boom_service.dart';
+import 'package:camp_app/boom/boom_state.dart';
+import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/kid/widgets/kid_achivments.dart';
+import 'package:camp_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../widgets/crystals.dart';
 import '../../widgets/kid_current_activity.dart';
@@ -62,7 +69,7 @@ class KidMainPage extends StatelessWidget {
 }
 
 class _KidMainPage extends StatelessWidget {
-  const _KidMainPage({
+  _KidMainPage({
     Key? key,
     required this.cards,
   }) : super(key: key);
@@ -71,32 +78,99 @@ class _KidMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: KidTheme.of(context).backgorundColor,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: Column(
-            children: cards
-                .map((e) => Padding(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        bottom: 17,
-                        right: 10,
+    return BlocProvider(
+      create: (context) => BoomBloc(BoomService(getIt<DioService>())),
+      child: BlocListener<BoomBloc, BoomState>(
+        listener: (context, state) {
+          if (state is BoomShow) {
+            _showBoom(context);
+          } else {
+            _hideBoom();
+          }
+        },
+        child: Scaffold(
+          backgroundColor: KidTheme.of(context).backgorundColor,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Column(
+                children: cards
+                    .map((e) => Padding(
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            bottom: 17,
+                            right: 10,
+                          ),
+                          child: e,
+                        ))
+                    .map(
+                      (e) => InitAnimationWrapper(
+                        child: e,
+                        left: Random().nextBool(),
                       ),
-                      child: e,
-                    ))
-                .map(
-                  (e) => InitAnimationWrapper(
-                    child: e,
-                    left: Random().nextBool(),
-                  ),
-                )
-                .toList(),
+                    )
+                    .toList(),
+              ),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  OverlayEntry? overlayEntry;
+
+  void _showBoom(BuildContext parentContext) {
+    var size = MediaQuery.of(parentContext).size;
+    overlayEntry = OverlayEntry(
+      builder: (BuildContext context) {
+        return GestureDetector(
+            child: Center(
+              child: Stack(children: [
+                // Image.asset(
+                //   "boom_bg.gif",
+                //   height: size.height,
+                //   fit: BoxFit.cover,
+                // ),
+                Image.asset("boom.gif"),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipOval(
+                        child: Image.asset(
+                          "child1.png",
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      ClipOval(
+                        child: Image.asset(
+                          "child2.png",
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ]),
+            ),
+            onTap: () {
+              parentContext.read<BoomBloc>().add(BoomClicked());
+            });
+      },
+    );
+    Overlay.of(parentContext)?.insert(overlayEntry!);
+  }
+
+  void _hideBoom() {
+    overlayEntry?.remove();
   }
 }
 
@@ -131,6 +205,7 @@ class InitAnimationWrapper extends HookWidget {
 
 class KidThemeProvider extends StatefulWidget {
   final Widget child;
+
   const KidThemeProvider({
     Key? key,
     required this.child,
