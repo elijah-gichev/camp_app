@@ -51,9 +51,9 @@ class AppRouter {
           transitionDuration: Duration(milliseconds: 500),
           pageBuilder: (_, __, ___) => RatingPage(),
         );
-      // case '/':
+      case '/':
 
-      case Routes.kidMain:
+        // case Routes.kidMain:
         return MaterialPageRoute(
           builder: (context) => const KidMainPage(),
         );
