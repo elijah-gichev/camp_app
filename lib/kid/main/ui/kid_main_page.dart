@@ -112,14 +112,11 @@ class InitAnimationWrapper extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final slideController =
-        useAnimationController(duration: Duration(milliseconds: 500));
+    final slideController = useAnimationController(duration: Duration(milliseconds: 500));
     useAnimation(slideController);
     print(slideController.value);
 
-    final offset =
-        Tween<Offset>(begin: Offset(left ? -0.7 : 0.7, 0.0), end: Offset.zero)
-            .animate(slideController);
+    final offset = Tween<Offset>(begin: Offset(left ? -0.7 : 0.7, 0.0), end: Offset.zero).animate(slideController);
 
     slideController.forward();
     return SlideTransition(
@@ -163,6 +160,14 @@ class KidTheme extends InheritedWidget {
 
   static KidThemeData of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<KidTheme>()!.kidThemeData;
+  }
+
+  static void changeToBlackTheme(BuildContext context) {
+    final state = context.findAncestorStateOfType<_KidThemeProviderState>()!;
+    //state.kidThemeData = KidThemeData.dark();
+    state.setState(() {
+      state.kidThemeData = KidThemeData.dark();
+    });
   }
 
   @override
