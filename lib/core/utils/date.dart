@@ -27,10 +27,12 @@ extension MyDateUtils on DateTime {
     final DateFormat formatter = DateFormat.yMMMMd();
     return formatter.format(this);
   }
+
   String formatMY() {
     final DateFormat formatter = DateFormat.yMMM();
     return formatter.format(this);
   }
+
   String formatDM() {
     final DateFormat formatter = DateFormat("dd.MM");
     return formatter.format(this);
@@ -38,19 +40,18 @@ extension MyDateUtils on DateTime {
 
   static String getGreetingByTime() {
     final hour = DateTime.now().hour;
-    if(4 <= hour && hour <= 11) {
+    if (4 <= hour && hour <= 11) {
       return 'Доброе утро';
-    } else if(12 <= hour && hour <= 17){
+    } else if (12 <= hour && hour <= 17) {
       return 'Добрый день';
-    } else if(18 <= hour && hour <= 23){
+    } else if (18 <= hour && hour <= 23) {
       return 'Добрый вечер';
     } else {
       return 'Доброй ночи';
     }
   }
 
-  static DateTime dateFromJson(int int) =>
-      DateTime.fromMillisecondsSinceEpoch(int*1000);
+  static DateTime dateFromJson(int int) => DateTime.fromMillisecondsSinceEpoch(int * 1000);
 
-  static int dateToJson(DateTime time) => time.millisecondsSinceEpoch~/1000;
+  static int dateToJson(DateTime time) => time.millisecondsSinceEpoch ~/ 1000;
 }

@@ -20,7 +20,9 @@ class Crystals extends StatelessWidget {
               angle: -0.03,
             ),
             title: "Баланс кристалов: 200",
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, Routes.kidCart);
+            },
             action: const KidCardButton(
               title: "Потратить",
             ),
