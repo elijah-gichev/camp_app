@@ -63,6 +63,9 @@ dependencies:
   provider: ^6.0.2
 
   shimmer: ^2.0.0
+  shake: ^2.1.0
+  geolocator: ^8.2.1
+  flutter_portal: ^1.1.0
 
 
 
@@ -88,6 +91,10 @@ flutter:
       - assets/images/
       - assets/images/raiting/
       - assets/ruble.png
+      - boom_bg.gif
+      - boom.gif
+      - child1.png
+      - child2.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
