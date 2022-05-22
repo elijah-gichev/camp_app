@@ -235,74 +235,81 @@ class EventView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: color(context),
-        borderRadius: BorderRadius.circular(
-          15.0,
+    return GestureDetector(
+      onTap: () {
+        if (color(context) == KidTheme.of(context).buttonColor) {
+          Navigator.pushNamed(context, Routes.rating);
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: color(context),
+          borderRadius: BorderRadius.circular(
+            15.0,
+          ),
         ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 42,
-            height: 42,
-            decoration: BoxDecoration(
-              color: KidTheme.of(context).eventIconBackground,
-              borderRadius: BorderRadius.circular(
-                6.0,
+        child: Row(
+          children: [
+            Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                color: KidTheme.of(context).eventIconBackground,
+                borderRadius: BorderRadius.circular(
+                  6.0,
+                ),
               ),
-            ),
-            child: Center(
-              child: Icon(
-                Icons.pin_drop,
-                color: KidTheme.of(context).eventDarkBlue,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 7,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                event.title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+              child: Center(
+                child: Icon(
+                  Icons.check,
                   color: KidTheme.of(context).eventDarkBlue,
                 ),
               ),
-              SizedBox(
-                height: 4,
-              ),
-              Text(
-                event.category,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: KidTheme.of(context).eventCategory,
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            ),
+            SizedBox(
+              width: 7,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                extra(context),
+                Text(
+                  event.title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: KidTheme.of(context).eventDarkBlue,
+                  ),
+                ),
                 SizedBox(
                   height: 4,
                 ),
                 Text(
-                  DateFormat('Hm').format(event.when),
+                  event.category,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: KidTheme.of(context).eventCategory,
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  extra(context),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    DateFormat('Hm').format(event.when),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

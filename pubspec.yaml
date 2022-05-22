@@ -89,7 +89,7 @@ flutter:
   assets:
       - assets/icons/
       - assets/images/
-      - assets/images/raiting/
+      - assets/images/rating/
       - assets/ruble.png
       - boom_bg.gif
       - boom.gif

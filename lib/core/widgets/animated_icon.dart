@@ -68,7 +68,7 @@ class RaitingIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!animated) {
       return Image.asset(
-        'assets/images/raiting/$raiting.png',
+        'assets/images/rating/$raiting.png',
         width: size,
         height: size,
       );

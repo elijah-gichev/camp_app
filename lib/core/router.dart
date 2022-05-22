@@ -4,6 +4,7 @@ import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/kid/calendar/calendar_page.dart';
 import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 import 'package:camp_app/core/services/user_service.dart';
+import 'package:camp_app/kid/rating/rating_page.dart';
 import 'package:camp_app/kid/widgets/kid_achivments.dart';
 import 'package:camp_app/kid/widgets/shift.dart';
 import 'package:camp_app/main.dart';
@@ -37,14 +38,21 @@ class AppRouter {
           transitionDuration: Duration(milliseconds: 500),
           pageBuilder: (_, __, ___) => KidShiftPage(),
         );
-      // case Routes.calendar:
-      case '/':
+      case Routes.calendar:
         return PageRouteBuilder(
           reverseTransitionDuration: Duration(milliseconds: 500),
           transitionDuration: Duration(milliseconds: 500),
           pageBuilder: (_, __, ___) => CalendarPage(),
         );
-      case Routes.kidMain:
+      case Routes.rating:
+        return PageRouteBuilder(
+          reverseTransitionDuration: Duration(milliseconds: 500),
+          transitionDuration: Duration(milliseconds: 500),
+          pageBuilder: (_, __, ___) => RatingPage(),
+        );
+      case '/':
+
+        // case Routes.kidMain:
         return MaterialPageRoute(
           builder: (context) => const KidMainPage(),
         );
