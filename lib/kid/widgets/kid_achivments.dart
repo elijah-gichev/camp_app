@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:camp_app/core/widgets/animated_icon.dart';
 import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 import 'package:camp_app/kid/widgets/kid_current_activity.dart';
 import 'package:camp_app/kid/widgets/shift.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide AnimatedIcon;
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -40,8 +43,41 @@ class KidAchivments extends StatelessWidget {
   }
 }
 
-class KidAchivmentsPage extends StatelessWidget {
+class KidAchivmentsPage extends StatefulWidget {
   const KidAchivmentsPage({Key? key}) : super(key: key);
+
+  @override
+  State<KidAchivmentsPage> createState() => _KidAchivmentsPageState();
+}
+
+class _KidAchivmentsPageState extends State<KidAchivmentsPage> {
+  late final AchivmentController achivmentController;
+
+  @override
+  void initState() {
+    super.initState();
+    achivmentController = AchivmentController();
+    achivmentController.init();
+    achivmentController.openCloseDialogController.stream.listen(
+      (event) {
+        if (event) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('Подсказка'),
+                content: Text(
+                  'Для того чтобы открыть данный сундук вам необхадима помощь товарища',
+                ),
+              );
+            },
+          );
+        } else {
+          Navigator.of(context, rootNavigator: true).pop();
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +115,22 @@ class KidAchivmentsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 19,
-                ),
-                child: TreasureCard(),
+              StreamBuilder(
+                stream: achivmentController.isEventExistController.stream,
+                initialData: true,
+                builder: (context, snapshot) {
+                  if (snapshot.data == true) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 19,
+                      ),
+                      child: TreasureCard(
+                        achivmentController: achivmentController,
+                      ),
+                    );
+                  }
+                  return Container();
+                },
               ),
             ],
           ),
@@ -94,8 +141,11 @@ class KidAchivmentsPage extends StatelessWidget {
 }
 
 class TreasureCard extends HookWidget {
+  final AchivmentController achivmentController;
+
   TreasureCard({
     Key? key,
+    required this.achivmentController,
   }) : super(key: key);
   TickerFuture? buttonPressedState;
 
@@ -107,6 +157,10 @@ class TreasureCard extends HookWidget {
       initialValue: 1,
       duration: Duration(milliseconds: 100),
     );
+
+    useEffect(() {
+      achivmentController.buttonScaleController = scaleController;
+    }, []);
     useAnimation(scaleController);
 
     return IntrinsicWidth(
@@ -124,6 +178,10 @@ class TreasureCard extends HookWidget {
             },
             onTap: () async {
               await buttonPressedState;
+              showModalBottomSheet(
+                context: context,
+                builder: (_) => FlutterLogo(),
+              );
             },
             child: Center(
               child: Container(
@@ -163,13 +221,20 @@ class TreasureCard extends HookWidget {
                             SizedBox(
                               height: 10,
                             ),
-                            Text(
-                              '26м',
-                              style: TextStyle(
-                                fontSize: 32,
-                                fontWeight: FontWeight.w600,
-                                color: KidTheme.of(context).cardTextColor,
-                              ),
+                            StreamBuilder(
+                              stream:
+                                  achivmentController.stepsController.stream,
+                              initialData: 5,
+                              builder: (context, snapshot) {
+                                return Text(
+                                  '${snapshot.data}м',
+                                  style: TextStyle(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w600,
+                                    color: KidTheme.of(context).cardTextColor,
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -295,5 +360,34 @@ class AchivmentButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class AchivmentController {
+  final StreamController<bool> isEventExistController = StreamController();
+  final StreamController<int> stepsController = StreamController.broadcast();
+  final StreamController<bool> openCloseDialogController = StreamController();
+  final StreamController<bool> startShow = StreamController();
+
+  late final AnimationController buttonScaleController;
+
+  void init() {
+    final stepStream = Stream.periodic(Duration(seconds: 1), (i) => 5 - i);
+    final stepSubs = stepStream.listen((event) {
+      stepsController.add(event);
+    });
+    stepsController.stream.listen((event) async {
+      if (event == 0) {
+        stepSubs.cancel();
+        await buttonScaleController.reverse();
+        openCloseDialogController.add(true);
+        await Future.delayed(Duration(seconds: 3));
+        openCloseDialogController.add(false);
+        await Future.delayed(Duration(milliseconds: 50));
+        buttonScaleController.forward();
+        await Future.delayed(Duration(seconds: 3));
+        startShow.add(true);
+      }
+    });
   }
 }
