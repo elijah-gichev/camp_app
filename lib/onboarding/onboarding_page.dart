@@ -288,7 +288,7 @@ class LoginModule extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             if (state is AuthLoading)
-              Center(
+              const Center(
                 child: CircularProgressIndicator(
                   color: Colors.white,
                 ),
