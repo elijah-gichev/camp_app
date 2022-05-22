@@ -18,8 +18,7 @@ final pages = [
   const PageData(
     title: "ДЕТСКИЙ ОЗДОРОВИТЕЛЬНЫЙ САНАТОРИЙ \"ВИТА\"",
     titleColor: AppColors.blue,
-    description:
-        "Добро пожаловать в место, где мир принадлежит детям! Вита подарит вашему ребенку яркий и развивающий отдых!",
+    description: "Добро пожаловать в место, где мир принадлежит детям! Вита подарит вашему ребенку яркий и развивающий отдых!",
     imageRes: "assets/images/vita_logo.png",
     imageBgColor: Color.fromRGBO(206, 236, 253, 1),
     bgColor: Colors.white,
@@ -27,8 +26,7 @@ final pages = [
   const PageData(
     title: "Лучший пляж на побережье",
     titleColor: AppColors.white,
-    description:
-        "Огороженная территория с теневыми навесами, биотуалетами, медпунктами и безопасной зоной для купания",
+    description: "Огороженная территория с теневыми навесами, биотуалетами, медпунктами и безопасной зоной для купания",
     descriptionColor: Colors.white,
     imageRes: "assets/images/beach.webp",
     imageBgColor: Colors.white,
@@ -37,8 +35,7 @@ final pages = [
   const PageData(
     title: "Видео наблюдение",
     titleColor: AppColors.blue,
-    description:
-        "Сеть камер охватывает внутреннюю и прилегающую территорию.",
+    description: "Сеть камер охватывает внутреннюю и прилегающую территорию.",
     imageRes: "assets/images/camera.webp",
     imageBgColor: Colors.white,
     bgColor: Color.fromRGBO(206, 236, 253, 1),
@@ -46,8 +43,7 @@ final pages = [
   const PageData(
     title: "Медицинский контроль",
     titleColor: AppColors.white,
-    description:
-    "Мы знаем, как подобрать индивидуальный курс лечения каждому ребенку",
+    description: "Мы знаем, как подобрать индивидуальный курс лечения каждому ребенку",
     descriptionColor: Colors.white,
     imageRes: "assets/images/medical_control.webp",
     imageBgColor: Colors.white,
@@ -56,8 +52,7 @@ final pages = [
   const PageData(
     title: "Праздник каждый день",
     titleColor: AppColors.blue,
-    description:
-    "Впечатления и эмоции - вот что запоминается больше всего. Воспоминаний хватит на целый год.",
+    description: "Впечатления и эмоции - вот что запоминается больше всего. Воспоминаний хватит на целый год.",
     imageRes: "assets/images/holiday.webp",
     imageBgColor: Color.fromRGBO(206, 236, 253, 1),
     bgColor: Colors.white,
@@ -128,8 +123,7 @@ class OnboardingPageView extends StatefulWidget {
   final PageData page;
   final bool isLast;
 
-  const OnboardingPageView({Key? key, required this.isLast, required this.page})
-      : super(key: key);
+  const OnboardingPageView({Key? key, required this.isLast, required this.page}) : super(key: key);
 
   @override
   State<OnboardingPageView> createState() => _OnboardingPageViewState();

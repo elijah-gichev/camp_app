@@ -1,3 +1,4 @@
+import 'package:camp_app/core/widgets/animated_icon.dart';
 import 'package:camp_app/core/widgets/main_button.dart';
 import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,15 @@ class ChildrenPaymentDialog extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            Icon(
-              Icons.currency_ruble,
+            BrilliantIcon(
               size: 120.r,
-              color: KidTheme.of(context).buttonTextColor,
             ),
+            // Icon(
+
+            //   Icons.currency_ruble,
+            //   size: 120.r,
+            //   color: KidTheme.of(context).buttonTextColor,
+            // ),
             Text(
               'Согласны ли вы купить?',
               textAlign: TextAlign.center,

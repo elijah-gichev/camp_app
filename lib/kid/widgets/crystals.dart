@@ -19,7 +19,7 @@ class Crystals extends StatelessWidget {
             kidCardTransformer: KidCardTransformer(
               angle: -0.03,
             ),
-            title: "Баланс кристалов: 200",
+            title: "Баланс кристаллов: 200",
             onTap: () {
               Navigator.pushNamed(context, Routes.kidCart);
             },

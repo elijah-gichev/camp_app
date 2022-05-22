@@ -65,17 +65,14 @@ class KidCard extends HookWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: kidCardTransformer?.shadowColor ??
-                          KidTheme.of(context).buttonTextColor.withOpacity(0.2),
+                      color: kidCardTransformer?.shadowColor ?? KidTheme.of(context).buttonTextColor.withOpacity(0.2),
                       spreadRadius: 1,
                       blurRadius: 5,
                       offset: kidCardTransformer?.shadowOffset == null
                           ? Offset.zero
                           : Offset(
-                              sin(4 * pi * kidCardTransformer!.shadowOffset!) *
-                                  2,
-                              cos(6 * pi * kidCardTransformer!.shadowOffset!) *
-                                  2,
+                              sin(4 * pi * kidCardTransformer!.shadowOffset!) * 2,
+                              cos(6 * pi * kidCardTransformer!.shadowOffset!) * 2,
                             ),
                     ),
                   ],
@@ -103,7 +100,7 @@ class KidCard extends HookWidget {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 21,
+                                  fontSize: 19,
                                   color: KidTheme.of(context).cardTextColor,
                                 ),
                               ),
