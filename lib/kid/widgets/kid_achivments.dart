@@ -372,20 +372,25 @@ class AchivmentController {
   late final AnimationController buttonScaleController;
 
   void init() {
-    final stepStream = Stream.periodic(Duration(seconds: 1), (i) => 5 - i);
+    final stepStream = Stream.periodic(Duration(seconds: 1), (i) => 2 - i);
     final stepSubs = stepStream.listen((event) {
       stepsController.add(event);
     });
     stepsController.stream.listen((event) async {
       if (event == 0) {
         stepSubs.cancel();
+
+        // await buttonScaleController.reverse();
+        // await Future.delayed(Duration(milliseconds: 50));
+        // openCloseDialogController.add(true);
+        // await Future.delayed(Duration(seconds: 3));
+        // openCloseDialogController.add(false);
+        // await Future.delayed(Duration(milliseconds: 50));
+        // await buttonScaleController.forward();
+        // await Future.delayed(Duration(seconds: 3));
+
         await buttonScaleController.reverse();
-        openCloseDialogController.add(true);
-        await Future.delayed(Duration(seconds: 3));
-        openCloseDialogController.add(false);
         await Future.delayed(Duration(milliseconds: 50));
-        buttonScaleController.forward();
-        await Future.delayed(Duration(seconds: 3));
         startShow.add(true);
       }
     });
