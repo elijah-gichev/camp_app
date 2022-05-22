@@ -1,9 +1,10 @@
 import 'package:camp_app/cart/models/category.dart';
 import 'package:camp_app/cart/models/service.dart';
 import 'package:camp_app/cart/models/subcategory.dart';
+import 'package:flutter/material.dart';
 
 class ToursCategoryRepository {
-  static const toursCategory = Category(title: 'Экскурсии', subcategories: [
+  static const toursCategory = Category(title: 'Экскурсии', iconData: Icons.tour, subcategories: [
     _subcategory1,
     _subcategory2,
     _subcategory3,

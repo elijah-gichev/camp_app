@@ -3,6 +3,7 @@ import 'package:camp_app/core/constants/app_fonts.dart';
 import 'package:camp_app/core/constants/app_strings.dart';
 import 'package:camp_app/core/models/operation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class OperationView extends StatefulWidget {
@@ -14,8 +15,7 @@ class OperationView extends StatefulWidget {
   State<OperationView> createState() => _OperationViewState();
 }
 
-class _OperationViewState extends State<OperationView>
-    with SingleTickerProviderStateMixin {
+class _OperationViewState extends State<OperationView> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 1),
     vsync: this,
@@ -101,12 +101,22 @@ class _OperationViewState extends State<OperationView>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: AppFonts.medium.copyWith(fontSize: 14),
+                        SizedBox(
+                          child: Text(
+                            title + ' (' + widget.operation.buyer.name.split(' ')[1] + ')',
+                            style: AppFonts.medium.copyWith(fontSize: 14),
+                          ),
                         ),
-                        Text(subtitle,
-                            style: AppFonts.regular.copyWith(fontSize: 12)),
+                        SizedBox(
+                          height: 4.h,
+                        ),
+                        Text(
+                          subtitle,
+                          style: AppFonts.regular.copyWith(
+                            fontSize: 12,
+                            color: const Color.fromRGBO(22, 22, 22, 0.4),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -121,9 +131,12 @@ class _OperationViewState extends State<OperationView>
                         color: color,
                       ),
                     ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
                     Text(
                       time,
-                      style: AppFonts.regular.copyWith(fontSize: 12),
+                      style: AppFonts.regular.copyWith(fontSize: 12, color: const Color.fromRGBO(22, 22, 22, 0.4)),
                     ),
                   ],
                 )

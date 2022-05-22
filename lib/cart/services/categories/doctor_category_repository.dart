@@ -1,13 +1,17 @@
 import 'package:camp_app/cart/models/category.dart';
 import 'package:camp_app/cart/models/service.dart';
 import 'package:camp_app/cart/models/subcategory.dart';
+import 'package:flutter/material.dart';
 
 class DoctorCategoryRepository {
-  static const doctorCategory = Category(title: 'Медицинские услуги', subcategories: [
+  static const doctorCategory = Category(title: 'Медицинские услуги', iconData: Icons.local_hospital, subcategories: [
     _doctorSubcategory1,
     _doctorSubcategory2,
     _doctorSubcategory3,
     _doctorSubcategory4,
+    _doctorSubcategory5,
+    _doctorSubcategory6,
+    _doctorSubcategory7,
   ]);
 
   static const _doctorServices1 = [
@@ -53,7 +57,7 @@ class DoctorCategoryRepository {
   ];
 
   static const _doctorSubcategory1 = Subcategory(
-    title: 'заболевания опорно-двиг аппарата',
+    title: 'заболевания опорно-двигательного аппарата',
     services: _doctorServices1,
   );
 
@@ -69,6 +73,21 @@ class DoctorCategoryRepository {
 
   static const _doctorSubcategory4 = Subcategory(
     title: 'заболевания лор органов',
+    services: _doctorServices4,
+  );
+
+  static const _doctorSubcategory5 = Subcategory(
+    title: 'заболевания желудочно-кишечного тракта',
+    services: _doctorServices4,
+  );
+
+  static const _doctorSubcategory6 = Subcategory(
+    title: 'заболевания эндокринной системы',
+    services: _doctorServices4,
+  );
+
+  static const _doctorSubcategory7 = Subcategory(
+    title: 'заболевания кожи',
     services: _doctorServices4,
   );
 }

@@ -1,9 +1,10 @@
 import 'package:camp_app/cart/models/category.dart';
 import 'package:camp_app/cart/models/service.dart';
 import 'package:camp_app/cart/models/subcategory.dart';
+import 'package:flutter/material.dart';
 
 class SportCategoryRepository {
-  static const sportsCategory = Category(title: 'Спорт', subcategories: [
+  static const sportsCategory = Category(title: 'Спорт', iconData: Icons.sports_handball, subcategories: [
     _subcategory1,
     _subcategory2,
     _subcategory3,

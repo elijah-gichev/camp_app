@@ -39,7 +39,7 @@ class OperationService {
       );
 
       final operations = List<Operation>.from(
-        operationsRaw.data.map(
+        operationsRaw.data['operations'].map(
           (content) => Operation.fromJson(content),
         ),
       );

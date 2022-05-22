@@ -35,9 +35,12 @@ class CampAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (onBackPressed != null) ...[
-                Container(
-                  margin: const EdgeInsets.only(right: 16),
-                  child: const Icon(Icons.arrow_back),
+                GestureDetector(
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 16),
+                    child: const Icon(Icons.arrow_back),
+                  ),
+                  onTap: onBackPressed,
                 )
               ],
               Text(
