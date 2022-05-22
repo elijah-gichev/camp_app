@@ -1,4 +1,5 @@
 import 'package:camp_app/core/widgets/main_button.dart';
+import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,6 +28,7 @@ class ChildrenPaymentDialog extends StatelessWidget {
             Icon(
               Icons.currency_ruble,
               size: 120.r,
+              color: KidTheme.of(context).buttonTextColor,
             ),
             Text(
               'Согласны ли вы купить?',
@@ -34,6 +36,7 @@ class ChildrenPaymentDialog extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
+                color: KidTheme.of(context).buttonTextColor,
               ),
             ),
             SizedBox(
@@ -42,13 +45,14 @@ class ChildrenPaymentDialog extends StatelessWidget {
             SizedBox(
               width: 200.w,
               child: MainButton(
-                linearGradient: const LinearGradient(
+                linearGradient: LinearGradient(
                   colors: [
-                    Colors.yellow,
-                    Colors.greenAccent,
+                    KidTheme.of(context).buttonColor,
+                    KidTheme.of(context).buttonColor,
                   ],
                 ),
                 minimumSize: Size(double.infinity, 65.h),
+                textColor: KidTheme.of(context).buttonTextColor,
                 text: 'Купить',
                 fontSize: 20.sp,
                 onPressed: () {
@@ -60,12 +64,11 @@ class ChildrenPaymentDialog extends StatelessWidget {
             SizedBox(
               width: 200.w,
               child: MainButton(
-                linearGradient: const LinearGradient(
+                textColor: KidTheme.of(context).buttonTextColor,
+                linearGradient: LinearGradient(
                   colors: [
-                    Colors.red,
-                    Colors.red,
-                    Colors.indigoAccent,
-                    Colors.red,
+                    KidTheme.of(context).buttonColor,
+                    KidTheme.of(context).buttonColor,
                   ],
                 ),
                 minimumSize: Size(double.infinity, 65.h),

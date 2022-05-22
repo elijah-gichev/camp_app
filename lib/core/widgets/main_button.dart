@@ -7,6 +7,8 @@ class MainButton extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
 
+  final Color? textColor;
+
   final bool _isLoading;
 
   const MainButton({
@@ -16,10 +18,10 @@ class MainButton extends StatelessWidget {
     required this.text,
     required this.fontSize,
     required this.onPressed,
+    this.textColor,
     bool? isLoading,
-  }) : _isLoading = isLoading ?? false, super(key: key);
-
-
+  })  : _isLoading = isLoading ?? false,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,14 @@ class MainButton extends StatelessWidget {
               textStyle: TextStyle(fontSize: fontSize),
             ),
             onPressed: onPressed,
-            child: _isLoading ? const CircularProgressIndicator(color: Colors.white,) : Text(text),
+            child: _isLoading
+                ? const CircularProgressIndicator(
+                    color: Colors.white,
+                  )
+                : Text(
+                    text,
+                    style: TextStyle(color: textColor),
+                  ),
           ),
         ],
       ),

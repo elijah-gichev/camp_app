@@ -32,10 +32,11 @@ class ChildCartPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     //padding: EdgeInsets.only(top: 20, left: 20.w),
-                    child: const Center(
+                    child: Center(
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
                         size: 15,
+                        color: KidTheme.of(context).buttonTextColor,
                       ),
                     ),
                   ),

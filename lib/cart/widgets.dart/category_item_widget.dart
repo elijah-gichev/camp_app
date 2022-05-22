@@ -43,14 +43,14 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                 height: 70.r,
                 width: 70.r,
                 decoration: BoxDecoration(
-                  color: widget.isSelected ? KidTheme.of(context).activeSelectorColor : KidTheme.of(context).notActiveSelectorColor,
+                  color: widget.isSelected ? KidTheme.of(context).buttonColor : KidTheme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Icon(
                     widget.category.iconData,
-                    color: widget.isSelected ? Colors.white : Colors.black, //KidTheme.of(context)
+                    color: widget.isSelected ? KidTheme.of(context).buttonTextColor : Colors.black, //KidTheme.of(context)
                   ),
                   // child: SvgPicture.asset(
                   //   widget.category.iconPath,
@@ -64,11 +64,15 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                 constraints: const BoxConstraints.tightFor(width: 72, height: 40),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(widget.category.title,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: KidTheme.of(context).activeSubtitleColor,
-                      )),
+                  child: Text(
+                    widget.category.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: KidTheme.of(context).buttonTextColor,
+                    ),
+                  ),
                 ),
               ),
           ],

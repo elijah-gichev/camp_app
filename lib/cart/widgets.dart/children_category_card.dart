@@ -80,7 +80,9 @@ class ChildrenCategoryCard extends StatelessWidget {
                                 Text(
                                   name,
                                   style: TextStyle(
+                                    fontWeight: FontWeight.w700,
                                     fontSize: 16.h,
+                                    color: KidTheme.of(context).cardTextColor,
                                   ),
                                 ),
                                 SizedBox(
@@ -89,8 +91,9 @@ class ChildrenCategoryCard extends StatelessWidget {
                                 Text(
                                   'Меняет цвет приложения',
                                   style: TextStyle(
+                                    fontWeight: FontWeight.w700,
                                     fontSize: 14.h,
-                                    color: KidTheme.of(context).themeButtonColor,
+                                    color: KidTheme.of(context).cardTextColor,
                                   ),
                                 ),
                                 SizedBox(
@@ -99,8 +102,9 @@ class ChildrenCategoryCard extends StatelessWidget {
                                 Text(
                                   '155 k',
                                   style: TextStyle(
-                                    fontSize: 20.h,
-                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 21,
+                                    color: KidTheme.of(context).cardTextColor,
                                   ),
                                 ),
                                 const SizedBox(
@@ -119,7 +123,7 @@ class ChildrenCategoryCard extends StatelessWidget {
             Positioned(
               left: 0,
               child: CircleAvatar(
-                backgroundColor: KidTheme.of(context).themeBackgroundColor,
+                backgroundColor: KidTheme.of(context).buttonColor,
                 radius: 38.r,
                 //backgroundImage: AssetImage(imagePath),
               ),
@@ -132,12 +136,12 @@ class ChildrenCategoryCard extends StatelessWidget {
                   child: Container(
                     width: 65.w,
                     height: 45.h,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(16.0),
                         bottomRight: Radius.circular(16.0),
                       ),
-                      color: Color(0xff98D2F5),
+                      color: KidTheme.of(context).buttonTextColor,
                     ),
                     child: GestureDetector(
                       behavior: HitTestBehavior.translucent,
