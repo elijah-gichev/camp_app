@@ -56,6 +56,7 @@ dependencies:
   firebase_database: ^9.0.14
 
   laravel_flutter_pusher: ^0.0.4
+  confetti: ^0.6.0
 
   equatable: ^2.0.3
 
@@ -83,6 +84,7 @@ flutter:
   assets:
       - assets/icons/
       - assets/images/
+      - assets/images/raiting/
       - assets/ruble.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

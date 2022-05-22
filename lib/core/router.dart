@@ -5,6 +5,7 @@ import 'package:camp_app/kid/adventure/adventure_page.dart';
 import 'package:camp_app/kid/calendar/calendar_page.dart';
 import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 import 'package:camp_app/core/services/user_service.dart';
+import 'package:camp_app/kid/widgets/shift.dart';
 import 'package:camp_app/main.dart';
 import 'package:camp_app/main/main_screen.dart';
 import 'package:camp_app/money/money_screen.dart';
@@ -18,6 +19,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppRouter {
   Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
+      case '/':
+        return MaterialPageRoute(
+          builder: (context) => const KidShiftPage(),
+        );
       case Routes.adventure:
         return MaterialPageRoute(
           builder: (context) => const AdventurePage(),

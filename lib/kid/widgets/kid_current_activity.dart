@@ -142,7 +142,7 @@ class TestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hero(
       tag: 'dinner',
-      createRectTween: _createRectTween,
+      createRectTween: createRectTween,
       child: Scaffold(
         backgroundColor: KidTheme.of(context).backgorundColor,
         body: const Center(
@@ -158,8 +158,8 @@ class TestPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Tween<Rect?> _createRectTween(Rect? begin, Rect? end) {
-    return CircularRectTween(begin: begin, end: end);
-  }
+Tween<Rect?> createRectTween(Rect? begin, Rect? end) {
+  return CircularRectTween(begin: begin, end: end);
 }

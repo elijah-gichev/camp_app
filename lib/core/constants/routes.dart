@@ -11,4 +11,6 @@ abstract class Routes {
   static const String calendar = '/calendar';
 
   static const String adventure = '/adventure';
+
+  static const String shift = '/shift';
 }
