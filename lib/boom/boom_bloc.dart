@@ -12,36 +12,39 @@ class BoomBloc extends Bloc<BoomEvent, BoomState> {
   late ShakeDetector detector;
 
   final BoomService boomService;
-  late final StreamSubscription<DatabaseEvent> subs;
-  DatabaseReference bumpedEventsRef = FirebaseDatabase.instance.ref("/bumped");
+  // late final StreamSubscription<DatabaseEvent> subs;
+  // DatabaseReference bumpedEventsRef = FirebaseDatabase.instance.ref("/bumped");
 
   BoomBloc(this.boomService) : super(BoomShow()) {
     detector = ShakeDetector.autoStart(
       onPhoneShake: () async {
-        try {
-          final result = await _determinePosition();
-          await boomService.postShake(
-            result.longitude,
-            result.latitude,
-          );
-        } catch (e) {
-          print(e);
-        }
+        // try {
+        //   final result = await _determinePosition();
+        //   await boomService.postShake(
+        //     result.longitude,
+        //     result.latitude,
+        //   );
+        // } catch (e) {
+        //   print(e);
+        // }
+        add(BoomShaked());
       },
       minimumShakeCount: 1,
       shakeSlopTimeMS: 500,
       shakeCountResetTime: 3000,
       shakeThresholdGravity: 2.7,
     );
-    subs = bumpedEventsRef
-        .orderByChild("date")
-        .startAt(DateTime.now().millisecondsSinceEpoch / 1000)
-        .onChildAdded
-        .listen((DatabaseEvent event) async {
-      add(BoomShaked());
-    });
-    on<BoomShaked>((event, emit) {
+    // subs = bumpedEventsRef
+    //     .orderByChild("date")
+    //     .startAt(DateTime.now().millisecondsSinceEpoch / 1000)
+    //     .onChildAdded
+    //     .listen((DatabaseEvent event) async {
+    //   add(BoomShaked());
+    // });
+    on<BoomShaked>((event, emit) async {
       emit(BoomShow());
+      await Future.delayed(const Duration(seconds: 3));
+      emit(BoomHide());
     });
     on<BoomClicked>((event, emit) {
       emit(BoomHide());
@@ -88,7 +91,7 @@ class BoomBloc extends Bloc<BoomEvent, BoomState> {
   @override
   Future<void> close() {
     detector.stopListening();
-    subs.cancel();
+    // subs.cancel();
     return super.close();
   }
 }
