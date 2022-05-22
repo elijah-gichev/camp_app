@@ -35,7 +35,7 @@ class _AccountsScreenState extends State<AccountsScreen> {
             child: BlocConsumer<AccountsBloc, AccountsState>(
               builder: (BuildContext context, state) {
                 if (state is AccountsLoadSuccess) {
-                  ListView.builder(
+                  return ListView.builder(
                       itemCount: state.accounts.length,
                       itemBuilder: (BuildContext context, int index) => Padding(
                             padding: const EdgeInsets.only(left: 16, right: 16),
