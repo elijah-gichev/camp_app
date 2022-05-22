@@ -85,7 +85,7 @@ class TreasureCard extends HookWidget {
                             StreamBuilder(
                               stream:
                                   achivmentController.stepsController.stream,
-                              initialData: 15,
+                              initialData: 5,
                               builder: (context, snapshot) {
                                 return Text(
                                   '${snapshot.data}м',

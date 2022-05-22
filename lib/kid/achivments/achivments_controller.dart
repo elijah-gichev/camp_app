@@ -17,7 +17,7 @@ class AchivmentController {
   }
 
   void init() {
-    final stepStream = Stream.periodic(Duration(seconds: 1), (i) => 15 - i);
+    final stepStream = Stream.periodic(Duration(seconds: 1), (i) => 5 - i);
     final stepSubs = stepStream.listen((event) {
       stepsController.add(event);
     });
