@@ -1,6 +1,9 @@
+import 'package:camp_app/kid/widgets/kid_current_activity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+
+import '../widgets/shift.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
@@ -14,11 +17,29 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SfCalendar(
-          view: CalendarView.day,
-          dataSource: MyCalendarDataSource(_getDataSource()),
+    return Hero(
+      tag: 'calendar',
+      createRectTween: createRectTween,
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: MyBackButton(),
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              Expanded(
+                child: SfCalendar(
+                  view: CalendarView.day,
+                  initialDisplayDate: DateTime.now(),
+                  dataSource: MyCalendarDataSource(_getDataSource()),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -28,22 +49,25 @@ class _CalendarPageState extends State<CalendarPage> {
     final List<Meeting> meetings = <Meeting>[];
     final DateTime today = DateTime.now();
     final DateTime startTime =
-        DateTime(today.year, today.month, today.day, 2, 0, 0);
-    final DateTime endTime = startTime.add(
-      const Duration(hours: 10),
+        DateTime(today.year, today.month, today.day, 7, 0, 0);
+    final DateTime startTime1 =
+        DateTime(today.year, today.month, today.day, 10, 0, 0);
+    final DateTime startTime2 =
+        DateTime(today.year, today.month, today.day, 18, 0, 0);
+    final DateTime endTime =
+        DateTime(today.year, today.month, today.day, 9, 0, 0);
+    final DateTime endTime1 =
+        DateTime(today.year, today.month, today.day, 15, 0, 0);
+    final DateTime endTime2 =
+        DateTime(today.year, today.month, today.day, 20, 0, 0);
+    meetings.add(
+      Meeting('Зарядка', startTime, endTime, Colors.blue, false),
     );
     meetings.add(
-      Meeting('Conference', startTime, endTime, Colors.green, false),
+      Meeting('Обед', startTime1, endTime1, Colors.red, false),
     );
     meetings.add(
-      Meeting(
-          'Conference 2',
-          endTime.add(Duration(hours: 1)),
-          endTime.add(
-            Duration(hours: 8),
-          ),
-          Colors.red,
-          false),
+      Meeting('Танцы', startTime2, endTime2, Colors.green, false),
     );
     return meetings;
   }

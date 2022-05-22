@@ -50,9 +50,25 @@ class _KidAchivmentsPageState extends State<KidAchivmentsPage> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('Подсказка'),
+                backgroundColor: KidTheme.of(context).backgorundColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                title: Text(
+                  'Подсказка',
+                  style: TextStyle(
+                    color: KidTheme.of(context).cardTextColor,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 content: Text(
-                  'Для того чтобы открыть данный сундук вам необхадима помощь товарища',
+                  'Нужно ещё 2 друга',
+                  style: TextStyle(
+                    color: KidTheme.of(context).cardTextColor,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               );
             },
@@ -62,6 +78,12 @@ class _KidAchivmentsPageState extends State<KidAchivmentsPage> {
         }
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    achivmentController.dispose();
   }
 
   @override

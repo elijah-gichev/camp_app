@@ -72,9 +72,9 @@ class App extends StatelessWidget {
       child: KidThemeProvider(
         child: MaterialApp(
           title: 'Camp app',
-          // supportedLocales: [
-          //   // Locale('ru', ''),
-          // ],
+          supportedLocales: [
+            Locale('ru', ''),
+          ],
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),

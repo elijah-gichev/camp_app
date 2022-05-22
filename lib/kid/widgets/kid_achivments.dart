@@ -12,6 +12,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../core/constants/routes.dart';
 import '../achivments/confetti.dart';
 import 'kid_card.dart';
 import 'lid_card_progress_bar.dart';
@@ -21,6 +22,9 @@ class KidAchivments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final KidCardTransformer kidCardTransformer = KidCardTransformer(
+      angle: 0.1,
+    );
     return Padding(
       padding: const EdgeInsets.only(
         top: 15,
@@ -29,12 +33,25 @@ class KidAchivments extends StatelessWidget {
       ),
       child: Hero(
         tag: 'achivments',
+        flightShuttleBuilder: (
+          _,
+          __,
+          ___,
+          ____,
+          ______,
+        ) =>
+            FlightShuttleBuilder(
+          kidCardTransformer: kidCardTransformer,
+        ),
         child: KidCard(
-          kidCardTransformer: KidCardTransformer(
-            angle: 0.1,
-          ),
+          kidCardTransformer: kidCardTransformer,
           title: "Уровень достижений: 5",
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              Routes.achivments,
+            );
+          },
           action: const KidCardProgressBar(
             current: 4,
             total: 5,
@@ -61,11 +78,35 @@ class ShowDialog extends HookWidget {
     return Opacity(
       opacity: showController.value,
       child: AlertDialog(
-        title: Text('Подсказка'),
-        content: UnconstrainedBox(
-          child: TreasureImageDialog(
-            size: 130,
+        backgroundColor: KidTheme.of(context).backgorundColor,
+        title: Text(
+          'Поздравляем!',
+          style: TextStyle(
+            color: KidTheme.of(context).cardTextColor,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
           ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            UnconstrainedBox(
+              child: TreasureImageDialog(
+                size: 130,
+              ),
+            ),
+            SizedBox(
+              height: 19,
+            ),
+            Text(
+              'Вы получили 100 кристаллов!',
+              style: TextStyle(
+                color: KidTheme.of(context).cardTextColor,
+                fontSize: 23,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -85,7 +126,7 @@ class TreasureImageDialog extends HookWidget {
 
   Color _colorFromValue(double value) {
     return HSVColor.lerp(
-      HSVColor.fromColor(Colors.redAccent),
+      HSVColor.fromColor(Colors.lightGreenAccent),
       HSVColor.fromColor(Colors.deepPurpleAccent),
       value,
     )!
@@ -156,7 +197,7 @@ class TreasureImageDialog extends HookWidget {
             children: [
               Confetti(),
               Image.asset(
-                'assets/images/treasure.png',
+                'assets/images/diamond.png',
                 width: size,
                 height: size,
               ),

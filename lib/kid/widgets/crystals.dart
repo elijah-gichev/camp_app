@@ -1,3 +1,4 @@
+import 'package:camp_app/core/widgets/animated_icon.dart';
 import 'package:flutter/material.dart';
 
 import 'kid_card.dart';
@@ -11,15 +12,23 @@ class Crystals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: KidCard(
-        kidCardTransformer: KidCardTransformer(
-          angle: -0.03,
-        ),
-        title: "Баланс кристалов: 200",
-        onTap: () {},
-        action: const KidCardButton(
-          title: "Потратить",
-        ),
+      child: Stack(
+        children: [
+          KidCard(
+            kidCardTransformer: KidCardTransformer(
+              angle: -0.03,
+            ),
+            title: "Баланс кристалов: 200",
+            onTap: () {},
+            action: const KidCardButton(
+              title: "Потратить",
+            ),
+          ),
+          Positioned(
+            right: 0,
+            child: BrilliantIcon(size: 50),
+          ),
+        ],
       ),
     );
   }

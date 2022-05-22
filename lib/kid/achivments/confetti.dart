@@ -26,6 +26,13 @@ class _ConfettiState extends State<Confetti> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controllerCenter.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,

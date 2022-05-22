@@ -72,7 +72,7 @@ class TreasureCard extends HookWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Поиск сундука',
+                              'Поиск сундука (3)',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -85,7 +85,7 @@ class TreasureCard extends HookWidget {
                             StreamBuilder(
                               stream:
                                   achivmentController.stepsController.stream,
-                              initialData: 5,
+                              initialData: 15,
                               builder: (context, snapshot) {
                                 return Text(
                                   '${snapshot.data}м',
