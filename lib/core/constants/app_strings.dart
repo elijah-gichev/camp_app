@@ -2,7 +2,7 @@
 class AppStrings {
   static const appName = "CampApp";
 
-  static const money = "Деньги";
+  static const money = "ВитаPay";
   static const shifts = "Смены";
   static const profile = "Профиль";
 

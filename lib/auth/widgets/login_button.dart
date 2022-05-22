@@ -1,3 +1,4 @@
+import 'package:camp_app/core/constants/app_colors.dart';
 import 'package:camp_app/core/widgets/button.dart';
 import 'package:camp_app/core/widgets/main_button.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,8 @@ class LoginButton extends StatelessWidget {
       child: Button(
         text: text,
         onPressed: !isLoading ? onPressed! : () {},
-        bgColor: const Color(0xffEDEFFF),
-        textColor: const Color(0xff4D5DFA),
+        bgColor: AppColors.violetLight,
+        textColor: AppColors.violet,
       ),
     );
   }

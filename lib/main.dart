@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import 'package:camp_app/auth/service/auth_service.dart';
+import 'package:camp_app/core/constants/app_colors.dart';
 import 'package:camp_app/core/router.dart';
-import 'package:camp_app/core/services/laravel_pusher_service.dart';
 import 'package:camp_app/core/services/local_user_service.dart';
-// import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'package:camp_app/core/services/dio_service.dart';
 import 'package:camp_app/core/services/user_service.dart';
 import 'package:camp_app/core/utils/bloc_observer.dart';
@@ -122,12 +119,18 @@ class App extends StatelessWidget {
     return ScreenUtilInit(
       child: KidThemeProvider(
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Camp app',
           // supportedLocales: [
           //   Locale('ru', ''),
           // ],
           theme: ThemeData(
             primarySwatch: Colors.blue,
+            textTheme: Theme.of(context).textTheme.apply(
+              fontFamily: 'Montserrat',
+              bodyColor: AppColors.darkBlue,
+              displayColor: AppColors.darkBlue,
+            ),
           ),
           onGenerateRoute: router.onGenerateRoute,
         ),
