@@ -26,7 +26,22 @@ class ChildrenCategoryCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: KidTheme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: KidTheme.of(context).buttonTextColor.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 5,
+              // offset: kidCardTransformer?.shadowOffset == null
+              //     ? Offset.zero
+              //     : Offset(
+              //         sin(4 * pi * kidCardTransformer!.shadowOffset!) * 2,
+              //         cos(6 * pi * kidCardTransformer!.shadowOffset!) * 2,
+              //       ),
+            ),
+          ],
         ),
         width: 340.w,
         child: Stack(
@@ -36,7 +51,7 @@ class ChildrenCategoryCard extends StatelessWidget {
               padding: EdgeInsets.only(left: 10.w),
               width: 320.w,
               decoration: BoxDecoration(
-                color: KidTheme.of(context).cardColor,
+                //color: KidTheme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: IntrinsicHeight(
@@ -45,7 +60,7 @@ class ChildrenCategoryCard extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                        color: KidTheme.of(context).cardColor,
+                        //color: KidTheme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -75,7 +90,7 @@ class ChildrenCategoryCard extends StatelessWidget {
                                   'Меняет цвет приложения',
                                   style: TextStyle(
                                     fontSize: 14.h,
-                                    color: KidTheme.of(context).buttonColor,
+                                    color: KidTheme.of(context).themeButtonColor,
                                   ),
                                 ),
                                 SizedBox(
@@ -104,50 +119,51 @@ class ChildrenCategoryCard extends StatelessWidget {
             Positioned(
               left: 0,
               child: CircleAvatar(
-                backgroundColor: Colors.black,
+                backgroundColor: KidTheme.of(context).themeBackgroundColor,
                 radius: 38.r,
                 //backgroundImage: AssetImage(imagePath),
               ),
             ),
-            Positioned(
-              right: 0,
-              bottom: 0,
-              child: GestureDetector(
-                child: Container(
-                  width: 65.w,
-                  height: 45.h,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16.0),
-                      bottomRight: Radius.circular(16.0),
-                    ),
-                    color: Color(0xff98D2F5),
-                  ),
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    child: const Center(
-                        child: Text(
-                      'Купить',
-                      style: TextStyle(
-                        color: Colors.white,
+            if (KidTheme.of(context).isLight)
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: GestureDetector(
+                  child: Container(
+                    width: 65.w,
+                    height: 45.h,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16.0),
+                        bottomRight: Radius.circular(16.0),
                       ),
-                    )),
-                    onTap: () async {
-                      final bool? agree = await showDialog(
-                        context: context,
-                        builder: (_) => ChildrenPaymentDialog(),
-                      );
+                      color: Color(0xff98D2F5),
+                    ),
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      child: const Center(
+                          child: Text(
+                        'Купить',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )),
+                      onTap: () async {
+                        final bool? agree = await showDialog(
+                          context: context,
+                          builder: (_) => ChildrenPaymentDialog(),
+                        );
 
-                      if (agree == true) {
-                        // купили
-                        KidTheme.changeToBlackTheme(context);
-                      }
-                    },
+                        if (agree == true) {
+                          // купили
+                          KidTheme.changeToBlackTheme(context);
+                        }
+                      },
+                    ),
                   ),
+                  onTap: onTap,
                 ),
-                onTap: onTap,
               ),
-            ),
           ],
         ),
       ),

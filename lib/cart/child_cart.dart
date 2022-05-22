@@ -1,11 +1,8 @@
 import 'package:camp_app/cart/controllers/selector_controller.dart';
-import 'package:camp_app/cart/widgets.dart/category_selector.dart';
 import 'package:camp_app/cart/widgets.dart/children_category_selector.dart';
 import 'package:camp_app/cart/widgets.dart/children_list_of_subcategories.dart';
-import 'package:camp_app/cart/widgets.dart/list_of_subcategories.dart';
 
-import 'package:camp_app/core/widgets/appbar.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:camp_app/kid/main/ui/kid_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +17,7 @@ class ChildCartPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: Color(0xffF5F5F5),
+          color: KidTheme.of(context).backgorundColor,
           child: Column(
             children: <Widget>[
               GestureDetector(

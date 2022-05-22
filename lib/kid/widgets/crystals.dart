@@ -1,3 +1,4 @@
+import 'package:camp_app/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 import 'kid_card.dart';
@@ -16,7 +17,9 @@ class Crystals extends StatelessWidget {
           angle: -0.03,
         ),
         title: "Баланс кристалов: 200",
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, Routes.kidCart);
+        },
         action: const KidCardButton(
           title: "Потратить",
         ),

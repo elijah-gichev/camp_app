@@ -192,6 +192,15 @@ class KidThemeData {
   final Color achivmentGreenColor;
   final Color achivmentBlueColor;
 
+  // тема кристаллов
+  final Color activeSelectorColor;
+  final Color notActiveSelectorColor;
+  final Color themeCardColor;
+  final Color themeButtonColor;
+  final Color themeBackgroundColor;
+  final Color activeSubtitleColor;
+  final Color bottomNavbarColor;
+
   KidThemeData._(
     this.backgorundColor,
     this.cardColor,
@@ -207,6 +216,14 @@ class KidThemeData {
     this.eventDarkRedColor,
     this.achivmentGreenColor,
     this.achivmentBlueColor,
+// тема кристаллов
+    this.activeSelectorColor,
+    this.notActiveSelectorColor,
+    this.themeCardColor,
+    this.themeButtonColor,
+    this.themeBackgroundColor,
+    this.activeSubtitleColor,
+    this.bottomNavbarColor,
   );
 
   KidThemeData.light()
@@ -223,7 +240,15 @@ class KidThemeData {
         eventCategory = Color(0xff222222),
         eventDarkRedColor = Color(0xffE6492D),
         achivmentGreenColor = Color(0xffEDFFF4),
-        achivmentBlueColor = Color(0xff4DA7FA);
+        achivmentBlueColor = Color(0xff4DA7FA),
+        // тема кристаллов
+        activeSelectorColor = Color(0xff98D2F5),
+        notActiveSelectorColor = Colors.grey[300]!,
+        themeCardColor = Colors.white,
+        themeBackgroundColor = Color(0xffF5F5F5),
+        themeButtonColor = Color(0xffA3AEB2),
+        activeSubtitleColor = Colors.black,
+        bottomNavbarColor = Colors.white;
 
   KidThemeData.dark()
       : isLight = false,
@@ -239,5 +264,13 @@ class KidThemeData {
         eventCategory = Color(0xff222222),
         eventDarkRedColor = Color(0xffE6492D),
         achivmentGreenColor = Color(0xffEDFFF4),
-        achivmentBlueColor = Color(0xff4DA7FA);
+        achivmentBlueColor = Color(0xff4DA7FA),
+        // тема кристаллов
+        activeSelectorColor = Colors.grey[300]!,
+        notActiveSelectorColor = Color(0xff98D2F5),
+        themeCardColor = Colors.grey[300]!,
+        themeBackgroundColor = Color(0xff666666),
+        themeButtonColor = Color(0xff4D5DFA),
+        activeSubtitleColor = Colors.white,
+        bottomNavbarColor = Color(0xffD9D9D9);
 }

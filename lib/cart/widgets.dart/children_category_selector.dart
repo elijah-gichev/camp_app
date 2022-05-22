@@ -28,11 +28,6 @@ class _ChildrenCategorySelectorState extends State<ChildrenCategorySelector> {
   late KidThemeData kidThemeData;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     items = categories
         .map(
@@ -41,7 +36,7 @@ class _ChildrenCategorySelectorState extends State<ChildrenCategorySelector> {
         .toList();
     super.didChangeDependencies();
 
-    kidThemeData = KidTheme.of(context);
+    //kidThemeData = KidTheme.of(context);
   }
 
   @override

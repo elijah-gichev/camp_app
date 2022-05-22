@@ -1,4 +1,14 @@
+import 'package:camp_app/auth/bloc/auth_bloc.dart';
+import 'package:camp_app/auth/service/auth_service.dart';
+import 'package:camp_app/auth/widgets/login_button.dart';
 import 'package:camp_app/core/constants/routes.dart';
+import 'package:camp_app/core/enums/role.dart';
+import 'package:camp_app/core/services/dio_service.dart';
+import 'package:camp_app/core/services/local_user_service.dart';
+import 'package:camp_app/core/services/user_service.dart';
+import 'package:camp_app/core/widgets/button.dart';
+import 'package:camp_app/core/widgets/show_snackbar.dart';
+import 'package:camp_app/main.dart';
 import 'package:camp_app/splash/cubit/splash_cubit.dart';
 import 'package:concentric_transition/concentric_transition.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +31,12 @@ final pages = [
     icon: Icons.format_size,
     title: "Choose your\ninterests",
     description: " Long description Long description Long description Long description",
+    textColor: Colors.white,
+    bgColor: Color(0xFFFDBFDD),
+  ),
+  const PageData(
+    icon: Icons.format_size,
+    title: "Вы можете войти в следующие аккаунты",
     textColor: Colors.white,
     bgColor: Color(0xFFFDBFDD),
   ),
@@ -58,7 +74,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           size: 0.1.sw,
         ),
         itemCount: pages.length,
-        onFinish: context.read<SplashCubit>().fisrtLaunchHappend,
+        //onFinish: context.read<SplashCubit>().fisrtLaunchHappend,
         duration: const Duration(milliseconds: 1500),
         // opacityFactor: 2.0,
         // scaleFactor: 0.2,
@@ -69,7 +85,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         itemBuilder: (index) {
           print(index);
           //inal page = pages[index];
-          return OnboardingPageView(page: pages[index]);
+          return OnboardingPageView(isLast: index == (pages.length - 1), page: pages[index]);
         },
       ),
     );
@@ -78,8 +94,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
 class OnboardingPageView extends StatefulWidget {
   final PageData page;
+  final bool isLast;
 
-  const OnboardingPageView({Key? key, required this.page}) : super(key: key);
+  const OnboardingPageView({Key? key, required this.isLast, required this.page}) : super(key: key);
 
   @override
   State<OnboardingPageView> createState() => _OnboardingPageViewState();
@@ -97,13 +114,6 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
           iconSize: 170,
         ),
         SizedBox(height: 0.08.sh),
-        // _Text(
-        //   page: widget.page,
-        //   text: widget.page.title,
-        //   style: TextStyle(
-        //     fontSize: 0.046.sh,
-        //   ),
-        // ),
         Text(
           widget.page.title ?? '',
           style: TextStyle(
@@ -121,6 +131,16 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 0.02.sh),
+        if (widget.isLast)
+          BlocProvider(
+            create: (_) => AuthBloc(
+              authService: getIt<AuthService>(),
+              userService: getIt<UserService>(),
+              dioService: getIt<DioService>(),
+              localUserService: getIt<LocalUserService>(),
+            )..add(AuthCheckIsLogged()),
+            child: const LoginModule(),
+          ),
         Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),
           child: _Text(
@@ -133,6 +153,149 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class LoginModule extends StatelessWidget {
+  const LoginModule({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // return BlocConsumer<AuthBloc, AuthState>(
+    //   builder: (context, state) {
+    // if (state is AuthLoading) {
+    //   return const Expanded(
+    //     child: Center(
+    //       child: CircularProgressIndicator(),
+    //     ),
+    //   );
+    //     } else {
+    //       return Column(
+    //         mainAxisAlignment: MainAxisAlignment.start,
+    //         crossAxisAlignment: CrossAxisAlignment.center,
+    //         children: [
+    //           Text(
+    //             'Login',
+    //             style: TextStyle(
+    //               fontSize: 36.sp,
+    //               fontWeight: FontWeight.bold,
+    //             ),
+    //           ),
+    //           SizedBox(
+    //             height: 10.h,
+    //           ),
+    //           Text(
+    //             'Welcome',
+    //             style: TextStyle(
+    //               fontSize: 16.sp,
+    //             ),
+    //             textAlign: TextAlign.center,
+    //           ),
+    //           SizedBox(
+    //             height: 47.h,
+    //           ),
+    //           LoginInput(phoneNumberController: phoneNumberController),
+    //           SizedBox(
+    //             height: 27.h,
+    //           ),
+    //           BlocBuilder<AuthBloc, AuthState>(
+    //             builder: (context, state) {
+    //               return LoginButton(
+    //                 onPressed: () {
+    //                   final phoneNumber = phoneNumberController.text;
+
+    //                   context.read<AuthBloc>().add(
+    //                         AuthInProgress(
+    //                           phone: phoneNumber,
+    //                         ),
+    //                       );
+    //                 },
+    //                 isLoading: state is AuthLoading,
+    //               );
+    //             },
+    //           ),
+    //           SizedBox(
+    //             height: 60.h,
+    //           ),
+    //           SizedBox(
+    //             height: 27.h,
+    //           ),
+    //         ],
+    //       );
+    //     }
+    //   },
+    // );
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthLoadingFailure) {
+          showSnackBar(context: context, message: state.msg);
+        }
+
+        if (state is AuthLoadingDone) {
+          if (state.user.role == Role.parent) {
+            Navigator.pushNamed(context, Routes.mainPage);
+          } else {
+            Navigator.pushNamed(context, Routes.kidMain);
+          }
+        }
+
+        if (state is AuthAlreadyLogged) {
+          if (state.user.role == Role.parent) {
+            Navigator.pushNamed(context, Routes.mainPage);
+          } else {
+            Navigator.pushNamed(context, Routes.kidMain);
+          }
+        }
+      },
+      builder: (context, state) {
+        return Column(
+          children: [
+            Container(
+              width: 0.8.sw,
+              height: 45.h,
+              child: LoginButton(
+                text: 'Перейти к родителю',
+                onPressed: () {
+                  final phoneNumber = '84067978373';
+
+                  context.read<AuthBloc>().add(
+                        AuthInProgress(
+                          phone: phoneNumber,
+                        ),
+                      );
+                },
+                isLoading: state is AuthLoading,
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Container(
+              width: 0.8.sw,
+              height: 45.h,
+              child: LoginButton(
+                text: 'Перейти к ребенку',
+                onPressed: () {
+                  final phoneNumber = '89559239857';
+
+                  context.read<AuthBloc>().add(
+                        AuthInProgress(
+                          phone: phoneNumber,
+                        ),
+                      );
+                },
+                isLoading: state is AuthLoading,
+              ),
+            ),
+            SizedBox(height: 10.h),
+            if (state is AuthLoading)
+              Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }

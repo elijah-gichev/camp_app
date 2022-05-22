@@ -1,3 +1,4 @@
+import 'package:camp_app/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
@@ -32,7 +33,9 @@ class KidMoneyBalance extends HookWidget {
           angle: -0.1,
         ),
         title: "Баланс монет: 1500",
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, Routes.qrScanner);
+        },
         action: const KidCardButton(
           title: "Потратить",
         ),
