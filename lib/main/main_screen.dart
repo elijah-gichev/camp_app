@@ -46,8 +46,8 @@ class _MainScreenState extends State<MainScreen> {
               label: AppStrings.shifts,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: AppStrings.profile,
+              icon: Icon(Icons.shopping_bag),
+              label: 'Услуги',
             ),
           ],
         ),
