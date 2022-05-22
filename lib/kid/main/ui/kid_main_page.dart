@@ -184,6 +184,8 @@ class KidThemeData {
   final Color eventDarkBlue;
   final Color eventIconBackground;
   final Color eventCategory;
+  final Color achivmentGreenColor;
+  final Color achivmentBlueColor;
 
   KidThemeData._(
     this.backgorundColor,
@@ -198,6 +200,8 @@ class KidThemeData {
     this.eventIconBackground,
     this.eventCategory,
     this.eventDarkRedColor,
+    this.achivmentGreenColor,
+    this.achivmentBlueColor,
   );
 
   KidThemeData.light()
@@ -212,7 +216,9 @@ class KidThemeData {
         eventDarkBlue = Color(0xff03314B),
         eventIconBackground = Color(0xff031A6E).withOpacity(0.1),
         eventCategory = Color(0xff222222),
-        eventDarkRedColor = Color(0xffE6492D);
+        eventDarkRedColor = Color(0xffE6492D),
+        achivmentGreenColor = Color(0xffEDFFF4),
+        achivmentBlueColor = Color(0xff4DA7FA);
 
   KidThemeData.dark()
       : isLight = false,
@@ -226,5 +232,7 @@ class KidThemeData {
         eventDarkBlue = Color(0xff03314B),
         eventIconBackground = Color(0xff031A6E).withOpacity(0.1),
         eventCategory = Color(0xff222222),
-        eventDarkRedColor = Color(0xffE6492D);
+        eventDarkRedColor = Color(0xffE6492D),
+        achivmentGreenColor = Color(0xffEDFFF4),
+        achivmentBlueColor = Color(0xff4DA7FA);
 }

@@ -72,34 +72,7 @@ class KidShiftPage extends StatelessWidget {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              UnconstrainedBox(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      left: 19,
-                      top: 19,
-                    ),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: KidTheme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color:
-                            KidTheme.of(context).eventCategory.withOpacity(0.5),
-                        width: 0.5,
-                      ),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.keyboard_arrow_left,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              MyBackButton(),
               SizedBox(
                 height: 24,
               ),
@@ -148,6 +121,43 @@ class KidShiftPage extends StatelessWidget {
         when: DateTime.now(),
       ),
     ];
+  }
+}
+
+class MyBackButton extends StatelessWidget {
+  const MyBackButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return UnconstrainedBox(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          margin: EdgeInsets.only(
+            left: 19,
+            top: 19,
+          ),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: KidTheme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: KidTheme.of(context).eventCategory.withOpacity(0.5),
+              width: 0.5,
+            ),
+          ),
+          child: Center(
+            child: Icon(
+              Icons.keyboard_arrow_left,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

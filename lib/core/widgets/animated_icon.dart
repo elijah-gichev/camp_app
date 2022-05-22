@@ -16,7 +16,7 @@ class AnimatedIcon extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final bounceAnimation = useAnimationController(
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 2),
     );
     useAnimation(bounceAnimation);
 
@@ -25,7 +25,7 @@ class AnimatedIcon extends HookWidget {
       ..repeat();
 
     return Transform.scale(
-      scale: 1 + cos(bounceAnimation.value * 2 * pi) * 0.1,
+      scale: 1 + cos(bounceAnimation.value * 2 * pi) * 0.05,
       child: Image.asset(
         asset,
         height: size,
