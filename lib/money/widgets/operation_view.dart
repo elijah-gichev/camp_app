@@ -90,7 +90,7 @@ class _OperationViewState extends State<OperationView> with SingleTickerProvider
                     borderRadius: BorderRadius.all(Radius.circular(6)),
                   ),
                   child: const Icon(
-                    Icons.ac_unit,
+                    Icons.shopping_basket,
                     size: 20,
                     color: AppColors.darkBlue,
                   ),
